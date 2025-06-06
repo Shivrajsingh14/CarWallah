@@ -7,9 +7,9 @@ const HeroSection = () => {
     <section id="home" className="relative min-h-screen bg-gradient-to-br from-carwala-black via-carwala-dark-gray to-carwala-black flex items-center overflow-hidden pt-20">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-10">
-        <div className="absolute top-20 left-10 w-32 h-32 border-2 border-primary rounded-full"></div>
-        <div className="absolute bottom-20 right-10 w-24 h-24 border-2 border-primary rounded-full"></div>
-        <div className="absolute top-1/2 left-1/4 w-16 h-16 border border-primary rounded-full"></div>
+        <div className="absolute top-20 left-10 w-32 h-32 border-2 border-primary rounded-full animate-pulse-slow"></div>
+        <div className="absolute bottom-20 right-10 w-24 h-24 border-2 border-primary rounded-full animate-bounce-slow"></div>
+        <div className="absolute top-1/2 left-1/4 w-16 h-16 border border-primary rounded-full animate-pulse"></div>
       </div>
 
       {/* Animated Road Lines */}
@@ -21,60 +21,60 @@ const HeroSection = () => {
         {/* Left Content */}
         <div className="text-carwala-white space-y-8 animate-slide-in-left">
           <div className="space-y-4">
-            <h2 className="text-lg font-semibold text-primary">Premium Car Rentals in Udaipur</h2>
+            <h2 className="text-lg font-semibold text-primary animate-fade-in-up opacity-0 animation-delay-200">Premium Car Rentals in Udaipur</h2>
             <h1 className="text-5xl lg:text-7xl font-bold leading-tight">
-              Rent a Car in 
-              <span className="text-primary block">Udaipur</span>
+              <span className="inline-block animate-fade-in-up opacity-0 animation-delay-400">Rent a Car in</span>
+              <span className="text-primary block animate-fade-in-up opacity-0 animation-delay-600 animate-text-glow">Udaipur</span>
             </h1>
-            <p className="text-xl text-gray-300 max-w-lg">
+            <p className="text-xl text-gray-300 max-w-lg animate-fade-in-up opacity-0 animation-delay-800">
               Pay 50% Now, Rest Later. Premium luxury cars available for pickup from our Udaipur office.
             </p>
           </div>
 
           {/* Key Features */}
-          <div className="flex flex-wrap gap-6">
-            <div className="flex items-center space-x-2">
-              <Car className="w-5 h-5 text-primary" />
+          <div className="flex flex-wrap gap-6 animate-fade-in-up opacity-0 animation-delay-1000">
+            <div className="flex items-center space-x-2 hover:scale-105 transition-transform duration-300 hover:text-primary cursor-pointer">
+              <Car className="w-5 h-5 text-primary animate-bounce-subtle" />
               <span>16 Premium Cars</span>
             </div>
-            <div className="flex items-center space-x-2">
-              <Clock className="w-5 h-5 text-primary" />
+            <div className="flex items-center space-x-2 hover:scale-105 transition-transform duration-300 hover:text-primary cursor-pointer">
+              <Clock className="w-5 h-5 text-primary animate-bounce-subtle animation-delay-200" />
               <span>Flexible Timing</span>
             </div>
-            <div className="flex items-center space-x-2">
-              <Phone className="w-5 h-5 text-primary" />
+            <div className="flex items-center space-x-2 hover:scale-105 transition-transform duration-300 hover:text-primary cursor-pointer">
+              <Phone className="w-5 h-5 text-primary animate-bounce-subtle animation-delay-400" />
               <span>Local Support</span>
             </div>
           </div>
 
           {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4">
+          <div className="flex flex-col sm:flex-row gap-4 animate-fade-in-up opacity-0 animation-delay-1200">
             <Button 
               size="lg" 
-              className="bg-primary hover:bg-primary/90 text-carwala-black font-bold text-lg px-8 py-4 hover-lift"
+              className="bg-primary hover:bg-primary/90 text-carwala-black font-bold text-lg px-8 py-4 hover-lift transform hover:scale-105 transition-all duration-300 animate-pulse-glow"
             >
               Book Now - Pay 50%
             </Button>
             <Button 
               size="lg" 
               variant="outline" 
-              className="border-primary text-primary hover:bg-primary hover:text-carwala-black text-lg px-8 py-4"
+              className="border-primary text-primary hover:bg-primary hover:text-carwala-black text-lg px-8 py-4 hover-lift transform hover:scale-105 transition-all duration-300"
             >
               View Our Cars
             </Button>
           </div>
 
           {/* Owner Info with Image */}
-          <div className="border-t border-carwala-dark-gray pt-6">
-            <div className="flex items-center space-x-4">
+          <div className="border-t border-carwala-dark-gray pt-6 animate-fade-in-up opacity-0 animation-delay-1400">
+            <div className="flex items-center space-x-4 hover:scale-105 transition-transform duration-300">
               <img 
                 src="/lovable-uploads/3190a23b-f24b-465b-a428-4bc1c14266c1.png" 
                 alt="Yashpal Singh Jhala - Owner"
-                className="w-16 h-16 rounded-full object-cover border-2 border-primary"
+                className="w-16 h-16 rounded-full object-cover border-2 border-primary animate-border-glow"
               />
               <div>
                 <p className="text-gray-400 text-sm mb-1">Call us directly:</p>
-                <p className="text-primary text-xl font-semibold">+91 9876543210</p>
+                <p className="text-primary text-xl font-semibold hover:text-carwala-yellow transition-colors duration-300 cursor-pointer">+91 9876543210</p>
                 <p className="text-gray-400 text-sm">Yashpal Singh Jhala - Owner</p>
               </div>
             </div>
@@ -217,18 +217,18 @@ const HeroSection = () => {
             </div>
 
             {/* Floating Elements */}
-            <div className="absolute -top-4 -right-4 bg-primary text-carwala-black p-3 rounded-full animate-bounce-slow">
+            <div className="absolute -top-4 -right-4 bg-primary text-carwala-black p-3 rounded-full animate-bounce-slow hover:animate-spin transition-all duration-300">
               <Car className="w-6 h-6" />
             </div>
             
             {/* Stats Cards */}
-            <div className="absolute -bottom-8 left-0 bg-carwala-white text-carwala-black p-4 rounded-lg shadow-xl hover-lift">
-              <div className="text-2xl font-bold text-primary">16</div>
+            <div className="absolute -bottom-8 left-0 bg-carwala-white text-carwala-black p-4 rounded-lg shadow-xl hover-lift animate-slide-up opacity-0 animation-delay-1600">
+              <div className="text-2xl font-bold text-primary animate-count-up">16</div>
               <div className="text-sm">Premium Cars</div>
             </div>
             
-            <div className="absolute -bottom-8 right-0 bg-carwala-white text-carwala-black p-4 rounded-lg shadow-xl hover-lift">
-              <div className="text-2xl font-bold text-primary">100%</div>
+            <div className="absolute -bottom-8 right-0 bg-carwala-white text-carwala-black p-4 rounded-lg shadow-xl hover-lift animate-slide-up opacity-0 animation-delay-1800">
+              <div className="text-2xl font-bold text-primary animate-count-up">100%</div>
               <div className="text-sm">Satisfaction</div>
             </div>
           </div>
@@ -236,8 +236,8 @@ const HeroSection = () => {
       </div>
 
       {/* Scroll Indicator */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-        <div className="w-6 h-10 border-2 border-primary rounded-full flex justify-center">
+      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce-smooth">
+        <div className="w-6 h-10 border-2 border-primary rounded-full flex justify-center hover:border-carwala-yellow transition-colors duration-300">
           <div className="w-1 h-3 bg-primary rounded-full mt-2 animate-pulse-slow"></div>
         </div>
       </div>
