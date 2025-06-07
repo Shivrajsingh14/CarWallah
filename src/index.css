@@ -284,19 +284,22 @@
   }
 }
 
-/* Enhanced Car Drive Animation */
+/* Real Car Animation Keyframes */
 @keyframes carDriveIn {
   0% {
     transform: translateX(-200px) scale(0.8);
     opacity: 0;
+    filter: blur(2px);
   }
   50% {
     transform: translateX(-50px) scale(0.9);
     opacity: 0.7;
+    filter: blur(1px);
   }
   100% {
     transform: translateX(0) scale(1);
     opacity: 1;
+    filter: blur(0px);
   }
 }
 
@@ -305,22 +308,94 @@
     transform: translateY(0px);
   }
   50% {
-    transform: translateY(-5px);
+    transform: translateY(-3px);
   }
 }
 
-@keyframes speedLines {
+@keyframes wheelSpin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes speedLine1 {
   0% {
     opacity: 0;
-    transform: translateX(20px);
+    transform: translateX(40px) scaleX(0);
   }
   50% {
     opacity: 0.8;
-    transform: translateX(0px);
+    transform: translateX(0px) scaleX(1);
   }
   100% {
     opacity: 0;
-    transform: translateX(-20px);
+    transform: translateX(-40px) scaleX(0.5);
+  }
+}
+
+@keyframes speedLine2 {
+  0% {
+    opacity: 0;
+    transform: translateX(30px) scaleX(0);
+  }
+  50% {
+    opacity: 0.6;
+    transform: translateX(0px) scaleX(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-30px) scaleX(0.5);
+  }
+}
+
+@keyframes speedLine3 {
+  0% {
+    opacity: 0;
+    transform: translateX(20px) scaleX(0);
+  }
+  50% {
+    opacity: 0.4;
+    transform: translateX(0px) scaleX(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-20px) scaleX(0.5);
+  }
+}
+
+@keyframes smoke1 {
+  0% {
+    opacity: 0.4;
+    transform: translate(0, 0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-30px, -20px) scale(1.5);
+  }
+}
+
+@keyframes smoke2 {
+  0% {
+    opacity: 0.3;
+    transform: translate(0, 0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-25px, -15px) scale(1.3);
+  }
+}
+
+@keyframes smoke3 {
+  0% {
+    opacity: 0.2;
+    transform: translate(0, 0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-20px, -10px) scale(1.2);
   }
 }
 
@@ -404,6 +479,39 @@
   background-size: 400% 400%;
 }
 
+/* Real Car Animation Classes */
+.car-drive-in {
+  animation: carDriveIn 2.5s ease-out, carHover 4s ease-in-out 2.5s infinite;
+}
+
+.animate-spin-wheel {
+  animation: wheelSpin 0.5s linear infinite;
+}
+
+.animate-speed-line-1 {
+  animation: speedLine1 2s ease-out infinite;
+}
+
+.animate-speed-line-2 {
+  animation: speedLine2 2.2s ease-out infinite 0.3s;
+}
+
+.animate-speed-line-3 {
+  animation: speedLine3 2.4s ease-out infinite 0.6s;
+}
+
+.animate-smoke-1 {
+  animation: smoke1 3s ease-out infinite;
+}
+
+.animate-smoke-2 {
+  animation: smoke2 3.5s ease-out infinite 0.5s;
+}
+
+.animate-smoke-3 {
+  animation: smoke3 4s ease-out infinite 1s;
+}
+
 /* Animation Delays */
 .animation-delay-200 {
   animation-delay: 0.2s;
@@ -450,12 +558,9 @@
   position: relative;
 }
 
-.car-drive-animation {
-  animation: carDriveIn 2s ease-out, carHover 3s ease-in-out 2s infinite;
-}
-
-.speed-lines {
-  animation: speedLines 1.5s ease-out infinite;
+.real-car-animation {
+  position: relative;
+  animation: carHover 3s ease-in-out infinite;
 }
 
 /* Road Lines Animation */
@@ -522,10 +627,6 @@
   }
 }
 
-.car-drive-in {
-  animation: drive 1.5s ease-out;
-}
-
 /* Glowing Effects */
 @keyframes glow {
   0%, 100% {
@@ -538,4 +639,9 @@
 
 .glow-effect {
   animation: glow 2s ease-in-out infinite;
+}
+
+/* Car Shadow Animation */
+.car-shadow {
+  animation: carHover 3s ease-in-out infinite;
 }

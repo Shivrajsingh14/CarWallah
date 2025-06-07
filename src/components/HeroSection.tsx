@@ -83,138 +83,49 @@ const HeroSection = () => {
           </div>
         </div>
 
-        {/* Right Content - Enhanced Realistic Car Animation */}
+        {/* Right Content - Real Car Animation */}
         <div className="relative animate-slide-in-right">
           <div className="relative">
-            {/* Realistic Car Animation */}
+            {/* Real Car Animation Container */}
             <div className="car-container relative">
-              {/* Enhanced Realistic Car SVG */}
-              <div className="car-drive-animation">
-                <svg 
-                  viewBox="0 0 600 300" 
-                  className="w-full max-w-2xl mx-auto"
-                  fill="none" 
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  {/* Car Shadow - Enhanced */}
-                  <ellipse cx="300" cy="260" rx="140" ry="20" fill="#000000" opacity="0.4"/>
-                  
-                  {/* Car Body - Main Body (SUV Style) */}
-                  <path 
-                    d="M100 180 L140 140 L160 125 L440 125 L460 140 L500 180 L500 210 L480 210 L480 235 L430 235 L430 210 L170 210 L170 235 L120 235 L120 210 L100 210 Z" 
-                    fill="#1a1a1a"
-                    stroke="#333333"
-                    strokeWidth="3"
+              {/* Main Car Image with Realistic Animations */}
+              <div className="real-car-animation relative">
+                {/* Car Shadow */}
+                <div className="car-shadow absolute bottom-0 left-1/2 transform -translate-x-1/2 w-96 h-8 bg-black opacity-30 rounded-full blur-sm"></div>
+                
+                {/* Main Car Image */}
+                <div className="car-body relative">
+                  <img 
+                    src="https://images.unsplash.com/photo-1555215695-3004980ad54e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+                    alt="Luxury Car"
+                    className="w-full max-w-2xl mx-auto relative z-10 car-drive-in"
                   />
                   
-                  {/* Car Body - Upper Section (Cabin) */}
-                  <path 
-                    d="M150 140 L175 120 L425 120 L450 140 L450 175 L150 175 Z" 
-                    fill="#2a2a2a"
-                    stroke="#444444"
-                    strokeWidth="2"
-                  />
+                  {/* Front Headlight Glow */}
+                  <div className="headlight-glow absolute top-1/2 right-8 w-12 h-6 bg-white opacity-60 rounded-full blur-md animate-pulse-slow"></div>
                   
-                  {/* Car Windows - Windshield and Side Windows */}
-                  <path 
-                    d="M160 135 L185 125 L415 125 L440 135 L440 165 L160 165 Z" 
-                    fill="#1a1a2e"
-                    opacity="0.9"
-                    stroke="#333"
-                    strokeWidth="1"
-                  />
-                  
-                  {/* Window Dividers */}
-                  <line x1="240" y1="125" x2="240" y2="165" stroke="#333" strokeWidth="2"/>
-                  <line x1="300" y1="125" x2="300" y2="165" stroke="#333" strokeWidth="2"/>
-                  <line x1="360" y1="125" x2="360" y2="165" stroke="#333" strokeWidth="2"/>
-                  
-                  {/* Car Hood Details */}
-                  <rect x="450" y="140" width="35" height="8" fill="#2a2a2a" rx="2"/>
-                  <rect x="450" y="155" width="35" height="8" fill="#2a2a2a" rx="2"/>
-                  <rect x="450" y="170" width="35" height="8" fill="#2a2a2a" rx="2"/>
-                  
-                  {/* Car Lights - LED Headlights */}
-                  <circle cx="480" cy="150" r="12" fill="#ffffff" opacity="0.9"/>
-                  <circle cx="480" cy="150" r="8" fill="#e6f3ff" opacity="0.8"/>
-                  <circle cx="480" cy="175" r="10" fill="#ffffff" opacity="0.7"/>
-                  <circle cx="480" cy="175" r="6" fill="#e6f3ff" opacity="0.6"/>
-                  
-                  {/* Car Lights - LED Taillights */}
-                  <rect x="110" y="145" width="15" height="8" fill="#ff4444" opacity="0.9" rx="2"/>
-                  <rect x="110" y="160" width="15" height="8" fill="#ff6666" opacity="0.7" rx="2"/>
-                  
-                  {/* Front Bumper */}
-                  <rect x="485" y="185" width="20" height="15" fill="#333333" rx="3"/>
-                  
-                  {/* Rear Bumper */}
-                  <rect x="95" y="185" width="20" height="15" fill="#333333" rx="3"/>
-                  
-                  {/* Car Wheels - Enhanced with Rims */}
-                  <g className="animate-spin" style={{transformOrigin: '180px 225px'}}>
-                    <circle cx="180" cy="225" r="30" fill="#000000"/>
-                    <circle cx="180" cy="225" r="25" fill="#2a2a2a"/>
-                    <circle cx="180" cy="225" r="20" fill="#FFD700"/>
-                    <circle cx="180" cy="225" r="15" fill="#333333"/>
-                    <circle cx="180" cy="225" r="8" fill="#000000"/>
-                    {/* Rim Spokes */}
-                    <g stroke="#FFD700" strokeWidth="2">
-                      <line x1="165" y1="225" x2="195" y2="225"/>
-                      <line x1="180" y1="210" x2="180" y2="240"/>
-                      <line x1="169" y1="214" x2="191" y2="236"/>
-                      <line x1="191" y1="214" x2="169" y2="236"/>
-                    </g>
-                  </g>
-                  
-                  <g className="animate-spin" style={{transformOrigin: '420px 225px'}}>
-                    <circle cx="420" cy="225" r="30" fill="#000000"/>
-                    <circle cx="420" cy="225" r="25" fill="#2a2a2a"/>
-                    <circle cx="420" cy="225" r="20" fill="#FFD700"/>
-                    <circle cx="420" cy="225" r="15" fill="#333333"/>
-                    <circle cx="420" cy="225" r="8" fill="#000000"/>
-                    {/* Rim Spokes */}
-                    <g stroke="#FFD700" strokeWidth="2">
-                      <line x1="405" y1="225" x2="435" y2="225"/>
-                      <line x1="420" y1="210" x2="420" y2="240"/>
-                      <line x1="409" y1="214" x2="431" y2="236"/>
-                      <line x1="431" y1="214" x2="409" y2="236"/>
-                    </g>
-                  </g>
-                  
-                  {/* Car Details - Door Handles */}
-                  <rect x="200" y="155" width="12" height="4" fill="#FFD700" rx="2"/>
-                  <rect x="280" y="155" width="12" height="4" fill="#FFD700" rx="2"/>
-                  <rect x="360" y="155" width="12" height="4" fill="#FFD700" rx="2"/>
-                  
-                  {/* Car Details - Front Grille */}
-                  <rect x="470" y="140" width="20" height="3" fill="#FFD700" opacity="0.8"/>
-                  <rect x="470" y="146" width="20" height="3" fill="#FFD700" opacity="0.8"/>
-                  <rect x="470" y="152" width="20" height="3" fill="#FFD700" opacity="0.8"/>
-                  <rect x="470" y="158" width="20" height="3" fill="#FFD700" opacity="0.8"/>
-                  
-                  {/* License Plate */}
-                  <rect x="440" y="190" width="25" height="12" fill="#ffffff" stroke="#333" strokeWidth="1"/>
-                  <text x="452" y="199" fontSize="6" fill="#333" fontFamily="Arial, sans-serif">RJ</text>
-                  
-                  {/* Side Mirror */}
-                  <ellipse cx="145" cy="145" rx="8" ry="5" fill="#2a2a2a" stroke="#FFD700" strokeWidth="1"/>
-                  <ellipse cx="455" cy="145" rx="8" ry="5" fill="#2a2a2a" stroke="#FFD700" strokeWidth="1"/>
-                  
-                  {/* Enhanced Speed Lines */}
-                  <g className="speed-lines" opacity="0.7">
-                    <line x1="70" y1="140" x2="30" y2="140" stroke="#FFD700" strokeWidth="3" strokeLinecap="round"/>
-                    <line x1="65" y1="160" x2="20" y2="160" stroke="#FFD700" strokeWidth="2.5" strokeLinecap="round"/>
-                    <line x1="60" y1="180" x2="10" y2="180" stroke="#FFD700" strokeWidth="2" strokeLinecap="round"/>
-                    <line x1="55" y1="200" x2="5" y2="200" stroke="#FFD700" strokeWidth="1.5" strokeLinecap="round"/>
-                  </g>
-                  
-                  {/* Exhaust Smoke */}
-                  <g className="opacity-40">
-                    <circle cx="90" cy="205" r="3" fill="#666666"/>
-                    <circle cx="85" cy="200" r="2" fill="#888888"/>
-                    <circle cx="80" cy="195" r="1.5" fill="#aaaaaa"/>
-                  </g>
-                </svg>
+                  {/* Animated Wheels */}
+                  <div className="wheel wheel-front absolute bottom-6 right-20 w-12 h-12 border-4 border-carwala-dark-gray rounded-full bg-black animate-spin-wheel">
+                    <div className="wheel-spokes absolute inset-2 border border-primary rounded-full"></div>
+                  </div>
+                  <div className="wheel wheel-rear absolute bottom-6 left-20 w-12 h-12 border-4 border-carwala-dark-gray rounded-full bg-black animate-spin-wheel">
+                    <div className="wheel-spokes absolute inset-2 border border-primary rounded-full"></div>
+                  </div>
+                </div>
+                
+                {/* Enhanced Speed Lines */}
+                <div className="speed-lines-container absolute top-1/2 left-0 transform -translate-y-1/2">
+                  <div className="speed-line opacity-70 absolute w-20 h-1 bg-primary blur-sm animate-speed-line-1" style={{top: '-20px'}}></div>
+                  <div className="speed-line opacity-60 absolute w-16 h-1 bg-primary blur-sm animate-speed-line-2" style={{top: '0px'}}></div>
+                  <div className="speed-line opacity-50 absolute w-12 h-1 bg-primary blur-sm animate-speed-line-3" style={{top: '20px'}}></div>
+                </div>
+                
+                {/* Exhaust Smoke */}
+                <div className="exhaust-smoke absolute bottom-8 left-4">
+                  <div className="smoke-particle w-3 h-3 bg-gray-400 rounded-full opacity-40 animate-smoke-1"></div>
+                  <div className="smoke-particle w-2 h-2 bg-gray-500 rounded-full opacity-30 animate-smoke-2" style={{marginTop: '-8px', marginLeft: '6px'}}></div>
+                  <div className="smoke-particle w-1 h-1 bg-gray-600 rounded-full opacity-20 animate-smoke-3" style={{marginTop: '-6px', marginLeft: '4px'}}></div>
+                </div>
               </div>
             </div>
 
