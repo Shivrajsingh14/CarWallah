@@ -1,4 +1,3 @@
-
 import { Button } from '@/components/ui/button';
 import { Car, Clock, Phone } from 'lucide-react';
 
@@ -21,20 +20,20 @@ const HeroSection = () => {
         {/* Left Content */}
         <div className="text-carwala-white space-y-8 animate-slide-in-left">
           <div className="space-y-4">
-            <h2 className="text-lg font-semibold text-primary animate-fade-in-up opacity-0 animation-delay-200">Premium Car Rentals in Udaipur</h2>
+            <h2 className="text-lg font-semibold text-primary animate-fade-in-up animation-delay-200">Premium Car Rentals in Udaipur</h2>
             <h1 className="text-5xl lg:text-7xl font-bold leading-tight">
-              <span className="inline-block animate-fade-in-up opacity-0 animation-delay-400">Rent a Car in</span>
-              <span className="text-primary block animate-fade-in-up opacity-0 animation-delay-600 animate-text-glow font-black text-6xl lg:text-8xl drop-shadow-lg" style={{
+              <span className="inline-block animate-fade-in-up animation-delay-400">Rent a Car in</span>
+              <span className="text-primary block animate-fade-in-up animation-delay-600 animate-text-glow font-black text-6xl lg:text-8xl drop-shadow-lg visible" style={{
                 textShadow: '0 0 20px #FFD700, 0 0 40px #FFD700, 0 0 60px #FFD700'
               }}>Udaipur</span>
             </h1>
-            <p className="text-xl text-gray-300 max-w-lg animate-fade-in-up opacity-0 animation-delay-800">
+            <p className="text-xl text-gray-300 max-w-lg animate-fade-in-up animation-delay-800">
               Pay 50% Now, Rest Later. Premium luxury cars available for pickup from our Udaipur office.
             </p>
           </div>
 
           {/* Key Features */}
-          <div className="flex flex-wrap gap-6 animate-fade-in-up opacity-0 animation-delay-1000">
+          <div className="flex flex-wrap gap-6 animate-fade-in-up animation-delay-1000">
             <div className="flex items-center space-x-2 hover:scale-105 transition-transform duration-300 hover:text-primary cursor-pointer">
               <Car className="w-5 h-5 text-primary animate-bounce-subtle" />
               <span>16 Premium Cars</span>
@@ -50,7 +49,7 @@ const HeroSection = () => {
           </div>
 
           {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 animate-fade-in-up opacity-0 animation-delay-1200">
+          <div className="flex flex-col sm:flex-row gap-4 animate-fade-in-up animation-delay-1200">
             <Button 
               size="lg" 
               className="bg-primary hover:bg-primary/90 text-carwala-black font-bold text-lg px-8 py-4 hover-lift transform hover:scale-105 transition-all duration-300 animate-pulse-glow"
@@ -67,7 +66,7 @@ const HeroSection = () => {
           </div>
 
           {/* Owner Info with Image */}
-          <div className="border-t border-carwala-dark-gray pt-6 animate-fade-in-up opacity-0 animation-delay-1400">
+          <div className="border-t border-carwala-dark-gray pt-6 animate-fade-in-up animation-delay-1400">
             <div className="flex items-center space-x-4 hover:scale-105 transition-transform duration-300">
               <img 
                 src="/lovable-uploads/3190a23b-f24b-465b-a428-4bc1c14266c1.png" 
@@ -224,12 +223,12 @@ const HeroSection = () => {
             </div>
             
             {/* Stats Cards */}
-            <div className="absolute -bottom-8 left-0 bg-carwala-white text-carwala-black p-4 rounded-lg shadow-xl hover-lift animate-slide-up opacity-0 animation-delay-1600">
+            <div className="absolute -bottom-8 left-0 bg-carwala-white text-carwala-black p-4 rounded-lg shadow-xl hover-lift animate-slide-up animation-delay-1600">
               <div className="text-2xl font-bold text-primary animate-count-up">16</div>
               <div className="text-sm">Premium Cars</div>
             </div>
             
-            <div className="absolute -bottom-8 right-0 bg-carwala-white text-carwala-black p-4 rounded-lg shadow-xl hover-lift animate-slide-up opacity-0 animation-delay-1800">
+            <div className="absolute -bottom-8 right-0 bg-carwala-white text-carwala-black p-4 rounded-lg shadow-xl hover-lift animate-slide-up animation-delay-1800">
               <div className="text-2xl font-bold text-primary animate-count-up">100%</div>
               <div className="text-sm">Satisfaction</div>
             </div>
