@@ -1,3 +1,4 @@
+
 import { Button } from '@/components/ui/button';
 import { Car, Clock, Phone } from 'lucide-react';
 
@@ -23,8 +24,8 @@ const HeroSection = () => {
             <h2 className="text-lg font-semibold text-primary animate-fade-in-up animation-delay-200">Premium Car Rentals in Udaipur</h2>
             <h1 className="text-5xl lg:text-7xl font-bold leading-tight">
               <span className="inline-block animate-fade-in-up animation-delay-400">Rent a Car in</span>
-              <span className="text-primary block animate-fade-in-up animation-delay-600 animate-text-glow font-black text-6xl lg:text-8xl drop-shadow-lg visible" style={{
-                textShadow: '0 0 20px #FFD700, 0 0 40px #FFD700, 0 0 60px #FFD700'
+              <span className="text-primary block animate-fade-in-up animation-delay-600 animate-text-glow font-black text-6xl lg:text-8xl drop-shadow-lg" style={{
+                textShadow: '0 0 8px #FFD700, 0 0 16px #FFD700'
               }}>Udaipur</span>
             </h1>
             <p className="text-xl text-gray-300 max-w-lg animate-fade-in-up animation-delay-800">
