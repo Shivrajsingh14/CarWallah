@@ -34,7 +34,7 @@ const Header = () => {
           <div className="hidden md:flex items-center space-x-4">
             <div className="flex items-center space-x-2 text-sm">
               <Phone className="w-4 h-4 text-primary" />
-              <span>+91 9876543210</span>
+              <span>+91 6376390767</span>
             </div>
             <Link to="/login">
               <Button variant="outline" className="border-primary text-primary hover:bg-primary hover:text-carwala-black">
@@ -70,7 +70,7 @@ const Header = () => {
               <a href="#contact" className="hover:text-primary transition-colors">Contact</a>
               <div className="flex items-center space-x-2 text-sm pt-2">
                 <Phone className="w-4 h-4 text-primary" />
-                <span>+91 9876543210</span>
+                <span>+91 6376390767</span>
               </div>
               <div className="flex flex-col space-y-2">
                 <Link to="/login">

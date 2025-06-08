@@ -1,11 +1,10 @@
-
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Car, Calendar } from 'lucide-react';
+import { Car, Users, Fuel, Settings, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
-interface Car {
+interface CarProps {
   id: number;
   name: string;
   type: string;
@@ -15,9 +14,10 @@ interface Car {
   status: 'available' | 'booked' | 'maintenance';
   price: number;
   image: string;
+  description: string;
 }
 
-const cars: Car[] = [
+const cars: CarProps[] = [
   {
     id: 1,
     name: "BMW 5 Series",
@@ -27,7 +27,8 @@ const cars: Car[] = [
     fuel: "Petrol",
     status: "available",
     price: 2500,
-    image: "/api/placeholder/300/200"
+    image: "/api/placeholder/300/200",
+    description: "Experience luxury and performance with this premium BMW sedan."
   },
   {
     id: 2,
@@ -38,7 +39,8 @@ const cars: Car[] = [
     fuel: "Diesel",
     status: "available",
     price: 3500,
-    image: "/api/placeholder/300/200"
+    image: "/api/placeholder/300/200",
+    description: "Spacious luxury SUV perfect for family trips and business travel."
   },
   {
     id: 3,
@@ -49,7 +51,8 @@ const cars: Car[] = [
     fuel: "Petrol",
     status: "booked",
     price: 3000,
-    image: "/api/placeholder/300/200"
+    image: "/api/placeholder/300/200",
+    description: "Elegant Mercedes with cutting-edge technology and comfort."
   },
   {
     id: 4,
@@ -60,7 +63,8 @@ const cars: Car[] = [
     fuel: "Diesel",
     status: "available",
     price: 2000,
-    image: "/api/placeholder/300/200"
+    image: "/api/placeholder/300/200",
+    description: "Reliable and robust SUV for all terrain adventures."
   },
   {
     id: 5,
@@ -71,7 +75,8 @@ const cars: Car[] = [
     fuel: "Petrol",
     status: "maintenance",
     price: 1500,
-    image: "/api/placeholder/300/200"
+    image: "/api/placeholder/300/200",
+    description: "Efficient and comfortable city car for daily commuting."
   },
   {
     id: 6,
@@ -82,69 +87,194 @@ const cars: Car[] = [
     fuel: "Petrol",
     status: "available",
     price: 1800,
-    image: "/api/placeholder/300/200"
+    image: "/api/placeholder/300/200",
+    description: "Modern compact SUV with advanced features and style."
+  },
+  {
+    id: 7,
+    name: "BMW X5",
+    type: "Luxury SUV",
+    seating: 7,
+    transmission: "Automatic",
+    fuel: "Diesel",
+    status: "available",
+    price: 4000,
+    image: "/api/placeholder/300/200",
+    description: "Premium BMW SUV with exceptional performance and luxury."
+  },
+  {
+    id: 8,
+    name: "Audi A4",
+    type: "Luxury Sedan",
+    seating: 5,
+    transmission: "Automatic",
+    fuel: "Petrol",
+    status: "available",
+    price: 2800,
+    image: "/api/placeholder/300/200",
+    description: "Sophisticated Audi sedan with premium interior and technology."
+  },
+  {
+    id: 9,
+    name: "Mercedes GLS",
+    type: "Luxury SUV",
+    seating: 7,
+    transmission: "Automatic",
+    fuel: "Diesel",
+    status: "booked",
+    price: 4500,
+    image: "/api/placeholder/300/200",
+    description: "Ultimate luxury SUV with spacious cabin and advanced features."
+  },
+  {
+    id: 10,
+    name: "Toyota Camry",
+    type: "Premium Sedan",
+    seating: 5,
+    transmission: "Automatic",
+    fuel: "Petrol",
+    status: "available",
+    price: 2200,
+    image: "/api/placeholder/300/200",
+    description: "Reliable premium sedan with excellent fuel efficiency."
+  },
+  {
+    id: 11,
+    name: "Honda Accord",
+    type: "Sedan",
+    seating: 5,
+    transmission: "Automatic",
+    fuel: "Petrol",
+    status: "available",
+    price: 2100,
+    image: "/api/placeholder/300/200",
+    description: "Spacious and comfortable sedan with advanced safety features."
+  },
+  {
+    id: 12,
+    name: "Hyundai Tucson",
+    type: "SUV",
+    seating: 5,
+    transmission: "Automatic",
+    fuel: "Diesel",
+    status: "maintenance",
+    price: 2300,
+    image: "/api/placeholder/300/200",
+    description: "Stylish SUV with modern design and excellent performance."
+  },
+  {
+    id: 13,
+    name: "BMW 3 Series",
+    type: "Luxury Sedan",
+    seating: 5,
+    transmission: "Automatic",
+    fuel: "Petrol",
+    status: "available",
+    price: 2700,
+    image: "/api/placeholder/300/200",
+    description: "Dynamic BMW sedan with sporty performance and luxury."
+  },
+  {
+    id: 14,
+    name: "Audi Q5",
+    type: "Luxury SUV",
+    seating: 5,
+    transmission: "Automatic",
+    fuel: "Diesel",
+    status: "available",
+    price: 3200,
+    image: "/api/placeholder/300/200",
+    description: "Premium compact SUV with quattro all-wheel drive."
+  },
+  {
+    id: 15,
+    name: "Mercedes C-Class",
+    type: "Luxury Sedan",
+    seating: 5,
+    transmission: "Automatic",
+    fuel: "Petrol",
+    status: "booked",
+    price: 2600,
+    image: "/api/placeholder/300/200",
+    description: "Elegant Mercedes sedan with premium comfort and technology."
+  },
+  {
+    id: 16,
+    name: "Toyota Innova",
+    type: "MPV",
+    seating: 8,
+    transmission: "Manual",
+    fuel: "Diesel",
+    status: "available",
+    price: 1900,
+    image: "/api/placeholder/300/200",
+    description: "Versatile multi-purpose vehicle perfect for large groups."
   }
 ];
 
 const CarShowcase = () => {
-  const [selectedFilter, setSelectedFilter] = useState('all');
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const carsPerPage = 4;
 
-  const getStatusBadge = (status: string) => {
-    const baseClasses = "px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wide";
-    
-    switch (status) {
-      case 'available':
-        return `${baseClasses} bg-green-100 text-green-800 border border-green-300`;
-      case 'booked':
-        return `${baseClasses} bg-red-100 text-red-800 border border-red-300`;
-      case 'maintenance':
-        return `${baseClasses} bg-yellow-100 text-yellow-800 border border-yellow-300`;
-      default:
-        return baseClasses;
-    }
+  const nextSlide = () => {
+    setCurrentIndex((prev) => 
+      prev + carsPerPage >= cars.length ? 0 : prev + carsPerPage
+    );
   };
 
-  const filteredCars = selectedFilter === 'all' 
-    ? cars 
-    : cars.filter(car => car.type.toLowerCase().includes(selectedFilter.toLowerCase()));
+  const prevSlide = () => {
+    setCurrentIndex((prev) => 
+      prev === 0 ? Math.max(0, cars.length - carsPerPage) : prev - carsPerPage
+    );
+  };
+
+  const visibleCars = cars.slice(currentIndex, currentIndex + carsPerPage);
 
   return (
     <section id="cars" className="py-20 bg-carwala-white">
       <div className="container mx-auto px-4">
-        {/* Section Header */}
-        <div className="text-center mb-12 animate-fade-in-up">
+        <div className="text-center mb-16">
           <h2 className="text-4xl font-bold text-carwala-black mb-4">
             Our Premium <span className="text-primary">Fleet</span>
           </h2>
           <p className="text-gray-600 text-lg max-w-2xl mx-auto">
-            Choose from our collection of 16 premium vehicles, all maintained to the highest standards for your comfort and safety.
+            Choose from our collection of 16 premium vehicles, all maintained to perfection and available for pickup from our Udaipur office.
           </p>
         </div>
 
-        {/* Filter Buttons */}
-        <div className="flex flex-wrap justify-center gap-4 mb-12">
-          {['all', 'sedan', 'suv', 'luxury'].map((filter) => (
-            <Button
-              key={filter}
-              variant={selectedFilter === filter ? "default" : "outline"}
-              className={`capitalize ${
-                selectedFilter === filter 
-                  ? 'bg-primary text-carwala-black' 
-                  : 'border-primary text-primary hover:bg-primary hover:text-carwala-black'
-              }`}
-              onClick={() => setSelectedFilter(filter)}
-            >
-              {filter === 'all' ? 'All Cars' : filter}
-            </Button>
-          ))}
+        {/* Navigation Controls */}
+        <div className="flex justify-between items-center mb-8">
+          <Button
+            variant="outline"
+            onClick={prevSlide}
+            className="border-primary text-primary hover:bg-primary hover:text-carwala-black"
+            disabled={currentIndex === 0}
+          >
+            <ChevronLeft className="w-4 h-4 mr-2" />
+            Previous
+          </Button>
+          
+          <div className="text-sm text-gray-600">
+            Showing {currentIndex + 1}-{Math.min(currentIndex + carsPerPage, cars.length)} of {cars.length} cars
+          </div>
+          
+          <Button
+            variant="outline"
+            onClick={nextSlide}
+            className="border-primary text-primary hover:bg-primary hover:text-carwala-black"
+            disabled={currentIndex + carsPerPage >= cars.length}
+          >
+            Next
+            <ChevronRight className="w-4 h-4 ml-2" />
+          </Button>
         </div>
 
         {/* Cars Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filteredCars.map((car, index) => (
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+          {visibleCars.map((car, index) => (
             <Card 
               key={car.id} 
-              className="overflow-hidden hover-lift border-0 shadow-lg"
+              className="overflow-hidden hover-lift border-0 shadow-lg bg-white"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               <div className="relative">
@@ -153,16 +283,9 @@ const CarShowcase = () => {
                   alt={car.name}
                   className="w-full h-48 object-cover bg-carwala-black"
                 />
-                <div className="absolute top-4 right-4">
-                  <span className={getStatusBadge(car.status)}>
-                    {car.status}
-                  </span>
+                <div className="absolute top-4 right-4 bg-primary text-carwala-black px-2 py-1 rounded text-xs font-semibold">
+                  Available
                 </div>
-                {car.status === 'available' && (
-                  <div className="absolute top-4 left-4 bg-primary text-carwala-black px-2 py-1 rounded text-xs font-semibold">
-                    Available Now
-                  </div>
-                )}
               </div>
               
               <CardContent className="p-6">
@@ -172,20 +295,22 @@ const CarShowcase = () => {
                     <p className="text-gray-600">{car.type}</p>
                   </div>
 
-                  <div className="grid grid-cols-2 gap-4 text-sm">
+                  <div className="grid grid-cols-2 gap-3 text-sm">
                     <div className="flex items-center space-x-1">
-                      <Car className="w-4 h-4 text-primary" />
+                      <Users className="w-4 h-4 text-primary" />
                       <span>{car.seating} Seater</span>
                     </div>
-                    <div>
-                      <span className="font-medium">Fuel:</span> {car.fuel}
-                    </div>
-                    <div>
-                      <span className="font-medium">Transmission:</span> {car.transmission}
+                    <div className="flex items-center space-x-1">
+                      <Fuel className="w-4 h-4 text-primary" />
+                      <span>{car.fuel}</span>
                     </div>
                     <div className="flex items-center space-x-1">
-                      <Calendar className="w-4 h-4 text-primary" />
-                      <span>Flexible</span>
+                      <Settings className="w-4 h-4 text-primary" />
+                      <span>{car.transmission}</span>
+                    </div>
+                    <div className="flex items-center space-x-1">
+                      <Car className="w-4 h-4 text-primary" />
+                      <span>Premium</span>
                     </div>
                   </div>
 
@@ -194,16 +319,8 @@ const CarShowcase = () => {
                       <span className="text-2xl font-bold text-carwala-black">₹{car.price}</span>
                       <span className="text-gray-600 text-sm">/day</span>
                     </div>
-                    <Button 
-                      className={`${
-                        car.status === 'available' 
-                          ? 'bg-primary hover:bg-primary/90 text-carwala-black' 
-                          : 'bg-gray-300 text-gray-500 cursor-not-allowed'
-                      }`}
-                      disabled={car.status !== 'available'}
-                    >
-                      {car.status === 'available' ? 'Book Now' : 
-                       car.status === 'booked' ? 'Booked' : 'Under Maintenance'}
+                    <Button className="bg-primary hover:bg-primary/90 text-carwala-black">
+                      Book Now
                     </Button>
                   </div>
                 </div>
@@ -212,16 +329,19 @@ const CarShowcase = () => {
           ))}
         </div>
 
-        {/* View All Button */}
-        <div className="text-center mt-12">
+        {/* CTA Section */}
+        <div className="text-center">
           <Link to="/cars">
             <Button 
               size="lg"
-              className="bg-carwala-black hover:bg-carwala-dark-gray text-carwala-white px-8 py-3"
+              className="bg-primary hover:bg-primary/90 text-carwala-black font-bold px-8 py-4 text-lg"
             >
-              View All 16 Cars
+              View Our Complete Fleet
             </Button>
           </Link>
+          <p className="text-gray-600 mt-4">
+            Explore all 16 premium vehicles in our collection
+          </p>
         </div>
       </div>
     </section>

@@ -27,7 +27,7 @@ const ContactSection = () => {
                   </div>
                   <div>
                     <h3 className="text-lg font-semibold text-carwala-white mb-2">Call Us</h3>
-                    <p className="text-primary text-xl font-bold">+91 9876543210</p>
+                    <p className="text-primary text-xl font-bold">+91 6376390767</p>
                     <p className="text-gray-300 text-sm">Yashpal Singh Jhala - Owner</p>
                   </div>
                 </div>
@@ -126,7 +126,7 @@ const ContactSection = () => {
             size="lg"
             className="bg-primary hover:bg-primary/90 text-carwala-black font-bold px-8 py-3"
           >
-            Call +91 9876543210
+            Call +91 6376390767
           </Button>
         </div>
       </div>
