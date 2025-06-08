@@ -83,34 +83,132 @@ const HeroSection = () => {
           </div>
         </div>
 
-        {/* Right Content - Real Car Animation */}
+        {/* Right Content - High-Quality SVG Car Animation */}
         <div className="relative animate-slide-in-right">
           <div className="relative">
-            {/* Real Car Animation Container */}
+            {/* SVG Car Animation Container */}
             <div className="car-container relative">
-              {/* Main Car Image with Realistic Animations */}
-              <div className="real-car-animation relative">
+              {/* High-Quality Realistic SVG Car */}
+              <div className="svg-car-animation relative">
                 {/* Car Shadow */}
                 <div className="car-shadow absolute bottom-0 left-1/2 transform -translate-x-1/2 w-96 h-8 bg-black opacity-30 rounded-full blur-sm"></div>
                 
-                {/* Main Car Image */}
-                <div className="car-body relative">
-                  <img 
-                    src="https://images.unsplash.com/photo-1555215695-3004980ad54e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
-                    alt="Luxury Car"
-                    className="w-full max-w-2xl mx-auto relative z-10 car-drive-in"
-                  />
-                  
-                  {/* Front Headlight Glow */}
-                  <div className="headlight-glow absolute top-1/2 right-8 w-12 h-6 bg-white opacity-60 rounded-full blur-md animate-pulse-slow"></div>
-                  
-                  {/* Animated Wheels */}
-                  <div className="wheel wheel-front absolute bottom-6 right-20 w-12 h-12 border-4 border-carwala-dark-gray rounded-full bg-black animate-spin-wheel">
-                    <div className="wheel-spokes absolute inset-2 border border-primary rounded-full"></div>
-                  </div>
-                  <div className="wheel wheel-rear absolute bottom-6 left-20 w-12 h-12 border-4 border-carwala-dark-gray rounded-full bg-black animate-spin-wheel">
-                    <div className="wheel-spokes absolute inset-2 border border-primary rounded-full"></div>
-                  </div>
+                {/* Main SVG Car */}
+                <div className="car-body relative svg-car-drive-in">
+                  <svg 
+                    width="500" 
+                    height="250" 
+                    viewBox="0 0 500 250" 
+                    className="w-full max-w-2xl mx-auto relative z-10"
+                  >
+                    {/* Car Body Main Structure */}
+                    <defs>
+                      <linearGradient id="carBodyGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="#2c3e50" />
+                        <stop offset="50%" stopColor="#34495e" />
+                        <stop offset="100%" stopColor="#1a252f" />
+                      </linearGradient>
+                      <linearGradient id="windowGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="#87ceeb" />
+                        <stop offset="100%" stopColor="#4682b4" />
+                      </linearGradient>
+                      <radialGradient id="wheelGradient" cx="50%" cy="50%" r="50%">
+                        <stop offset="0%" stopColor="#2c3e50" />
+                        <stop offset="70%" stopColor="#34495e" />
+                        <stop offset="100%" stopColor="#1a252f" />
+                      </radialGradient>
+                      <filter id="carShadow" x="-50%" y="-50%" width="200%" height="200%">
+                        <feDropShadow dx="3" dy="3" stdDeviation="2" floodColor="#000" floodOpacity="0.3"/>
+                      </filter>
+                    </defs>
+                    
+                    {/* Car Main Body */}
+                    <path 
+                      d="M 80 180 L 420 180 L 430 170 L 430 140 L 400 120 L 350 100 L 280 90 L 200 90 L 150 100 L 100 120 L 70 140 L 70 170 Z" 
+                      fill="url(#carBodyGradient)" 
+                      stroke="#1a252f" 
+                      strokeWidth="2"
+                      filter="url(#carShadow)"
+                    />
+                    
+                    {/* Car Roof */}
+                    <path 
+                      d="M 150 100 L 280 90 L 320 100 L 340 120 L 160 120 Z" 
+                      fill="url(#carBodyGradient)" 
+                      stroke="#1a252f" 
+                      strokeWidth="2"
+                    />
+                    
+                    {/* Front Windshield */}
+                    <path 
+                      d="M 280 90 L 320 100 L 340 120 L 300 110 Z" 
+                      fill="url(#windowGradient)" 
+                      stroke="#4682b4" 
+                      strokeWidth="1"
+                      opacity="0.8"
+                    />
+                    
+                    {/* Rear Windshield */}
+                    <path 
+                      d="M 150 100 L 200 90 L 220 110 L 160 120 Z" 
+                      fill="url(#windowGradient)" 
+                      stroke="#4682b4" 
+                      strokeWidth="1"
+                      opacity="0.8"
+                    />
+                    
+                    {/* Side Windows */}
+                    <rect x="220" y="110" width="80" height="30" fill="url(#windowGradient)" stroke="#4682b4" strokeWidth="1" opacity="0.8" />
+                    
+                    {/* Front Grille */}
+                    <rect x="400" y="140" width="25" height="25" fill="#1a252f" stroke="#FFD700" strokeWidth="1" />
+                    <rect x="405" y="145" width="15" height="3" fill="#FFD700" />
+                    <rect x="405" y="150" width="15" height="3" fill="#FFD700" />
+                    <rect x="405" y="155" width="15" height="3" fill="#FFD700" />
+                    
+                    {/* Headlights */}
+                    <circle cx="415" cy="152" r="8" fill="#ffffff" stroke="#FFD700" strokeWidth="2">
+                      <animate attributeName="opacity" values="0.7;1;0.7" dur="2s" repeatCount="indefinite" />
+                    </circle>
+                    
+                    {/* Taillights */}
+                    <circle cx="85" cy="152" r="6" fill="#ff4444" stroke="#cc0000" strokeWidth="1" />
+                    
+                    {/* Door Handles */}
+                    <rect x="180" y="145" width="8" height="4" fill="#FFD700" rx="2" />
+                    <rect x="320" y="145" width="8" height="4" fill="#FFD700" rx="2" />
+                    
+                    {/* Front Wheel */}
+                    <g className="wheel-front">
+                      <circle cx="350" cy="180" r="25" fill="url(#wheelGradient)" stroke="#1a252f" strokeWidth="3" />
+                      <circle cx="350" cy="180" r="15" fill="#2c3e50" stroke="#FFD700" strokeWidth="2" />
+                      <g className="wheel-spokes animate-spin-wheel" style={{transformOrigin: '350px 180px'}}>
+                        <line x1="335" y1="180" x2="365" y2="180" stroke="#FFD700" strokeWidth="2" />
+                        <line x1="350" y1="165" x2="350" y2="195" stroke="#FFD700" strokeWidth="2" />
+                        <line x1="340" y1="170" x2="360" y2="190" stroke="#FFD700" strokeWidth="1" />
+                        <line x1="360" y1="170" x2="340" y2="190" stroke="#FFD700" strokeWidth="1" />
+                      </g>
+                    </g>
+                    
+                    {/* Rear Wheel */}
+                    <g className="wheel-rear">
+                      <circle cx="150" cy="180" r="25" fill="url(#wheelGradient)" stroke="#1a252f" strokeWidth="3" />
+                      <circle cx="150" cy="180" r="15" fill="#2c3e50" stroke="#FFD700" strokeWidth="2" />
+                      <g className="wheel-spokes animate-spin-wheel" style={{transformOrigin: '150px 180px'}}>
+                        <line x1="135" y1="180" x2="165" y2="180" stroke="#FFD700" strokeWidth="2" />
+                        <line x1="150" y1="165" x2="150" y2="195" stroke="#FFD700" strokeWidth="2" />
+                        <line x1="140" y1="170" x2="160" y2="190" stroke="#FFD700" strokeWidth="1" />
+                        <line x1="160" y1="170" x2="140" y2="190" stroke="#FFD700" strokeWidth="1" />
+                      </g>
+                    </g>
+                    
+                    {/* Car Details - Side Lines */}
+                    <line x1="100" y1="160" x2="380" y2="160" stroke="#FFD700" strokeWidth="1" opacity="0.7" />
+                    <line x1="100" y1="165" x2="380" y2="165" stroke="#FFD700" strokeWidth="0.5" opacity="0.5" />
+                    
+                    {/* Mirror */}
+                    <ellipse cx="340" cy="135" rx="4" ry="6" fill="#2c3e50" stroke="#FFD700" strokeWidth="1" />
+                  </svg>
                 </div>
                 
                 {/* Enhanced Speed Lines */}

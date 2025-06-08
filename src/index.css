@@ -284,8 +284,8 @@
   }
 }
 
-/* Real Car Animation Keyframes */
-@keyframes carDriveIn {
+/* SVG Car Animation Keyframes */
+@keyframes svgCarDriveIn {
   0% {
     transform: translateX(-200px) scale(0.8);
     opacity: 0;
@@ -303,12 +303,12 @@
   }
 }
 
-@keyframes carHover {
+@keyframes svgCarHover {
   0%, 100% {
     transform: translateY(0px);
   }
   50% {
-    transform: translateY(-3px);
+    transform: translateY(-5px);
   }
 }
 
@@ -479,13 +479,13 @@
   background-size: 400% 400%;
 }
 
-/* Real Car Animation Classes */
-.car-drive-in {
-  animation: carDriveIn 2.5s ease-out, carHover 4s ease-in-out 2.5s infinite;
+/* SVG Car Animation Classes */
+.svg-car-drive-in {
+  animation: svgCarDriveIn 2.5s ease-out, svgCarHover 4s ease-in-out 2.5s infinite;
 }
 
 .animate-spin-wheel {
-  animation: wheelSpin 0.5s linear infinite;
+  animation: wheelSpin 0.8s linear infinite;
 }
 
 .animate-speed-line-1 {
@@ -558,9 +558,9 @@
   position: relative;
 }
 
-.real-car-animation {
+.svg-car-animation {
   position: relative;
-  animation: carHover 3s ease-in-out infinite;
+  animation: svgCarHover 3s ease-in-out infinite;
 }
 
 /* Road Lines Animation */
@@ -643,5 +643,5 @@
 
 /* Car Shadow Animation */
 .car-shadow {
-  animation: carHover 3s ease-in-out infinite;
+  animation: svgCarHover 3s ease-in-out infinite;
 }
