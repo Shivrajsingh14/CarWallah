@@ -83,146 +83,184 @@ const HeroSection = () => {
           </div>
         </div>
 
-        {/* Right Content - High-Quality SVG Car Animation */}
+        {/* Right Content - Black SUV Animation */}
         <div className="relative animate-slide-in-right">
           <div className="relative">
-            {/* SVG Car Animation Container */}
+            {/* SUV Animation Container */}
             <div className="car-container relative">
-              {/* High-Quality Realistic SVG Car */}
+              {/* Premium Black SUV */}
               <div className="svg-car-animation relative">
                 {/* Car Shadow */}
-                <div className="car-shadow absolute bottom-0 left-1/2 transform -translate-x-1/2 w-96 h-8 bg-black opacity-30 rounded-full blur-sm"></div>
+                <div className="car-shadow absolute bottom-0 left-1/2 transform -translate-x-1/2 w-[450px] h-8 bg-black opacity-30 rounded-full blur-sm"></div>
                 
-                {/* Main SVG Car */}
+                {/* Main Black SUV */}
                 <div className="car-body relative svg-car-drive-in">
                   <svg 
-                    width="500" 
-                    height="250" 
-                    viewBox="0 0 500 250" 
+                    width="600" 
+                    height="280" 
+                    viewBox="0 0 600 280" 
                     className="w-full max-w-2xl mx-auto relative z-10"
                   >
-                    {/* Car Body Main Structure */}
+                    {/* SUV Gradients and Filters */}
                     <defs>
-                      <linearGradient id="carBodyGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stopColor="#2c3e50" />
-                        <stop offset="50%" stopColor="#34495e" />
-                        <stop offset="100%" stopColor="#1a252f" />
+                      <linearGradient id="suvBodyGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="#1a1a1a" />
+                        <stop offset="30%" stopColor="#2d2d2d" />
+                        <stop offset="70%" stopColor="#1a1a1a" />
+                        <stop offset="100%" stopColor="#0d0d0d" />
                       </linearGradient>
-                      <linearGradient id="windowGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stopColor="#87ceeb" />
-                        <stop offset="100%" stopColor="#4682b4" />
+                      <linearGradient id="suvWindowGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="#4a5568" />
+                        <stop offset="50%" stopColor="#2d3748" />
+                        <stop offset="100%" stopColor="#1a202c" />
                       </linearGradient>
-                      <radialGradient id="wheelGradient" cx="50%" cy="50%" r="50%">
-                        <stop offset="0%" stopColor="#2c3e50" />
-                        <stop offset="70%" stopColor="#34495e" />
-                        <stop offset="100%" stopColor="#1a252f" />
+                      <radialGradient id="suvWheelGradient" cx="50%" cy="50%" r="50%">
+                        <stop offset="0%" stopColor="#2d2d2d" />
+                        <stop offset="70%" stopColor="#1a1a1a" />
+                        <stop offset="100%" stopColor="#0d0d0d" />
                       </radialGradient>
-                      <filter id="carShadow" x="-50%" y="-50%" width="200%" height="200%">
-                        <feDropShadow dx="3" dy="3" stdDeviation="2" floodColor="#000" floodOpacity="0.3"/>
+                      <linearGradient id="suvTrimGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stopColor="#FFD700" />
+                        <stop offset="50%" stopColor="#FFA500" />
+                        <stop offset="100%" stopColor="#FFD700" />
+                      </linearGradient>
+                      <filter id="suvShadow" x="-50%" y="-50%" width="200%" height="200%">
+                        <feDropShadow dx="4" dy="4" stdDeviation="3" floodColor="#000" floodOpacity="0.4"/>
+                      </filter>
+                      <filter id="suvGlow" x="-50%" y="-50%" width="200%" height="200%">
+                        <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+                        <feMerge> 
+                          <feMergeNode in="coloredBlur"/>
+                          <feMergeNode in="SourceGraphic"/>
+                        </feMerge>
                       </filter>
                     </defs>
                     
-                    {/* Car Main Body */}
+                    {/* SUV Main Body */}
                     <path 
-                      d="M 80 180 L 420 180 L 430 170 L 430 140 L 400 120 L 350 100 L 280 90 L 200 90 L 150 100 L 100 120 L 70 140 L 70 170 Z" 
-                      fill="url(#carBodyGradient)" 
-                      stroke="#1a252f" 
+                      d="M 100 200 L 500 200 L 510 185 L 510 150 L 490 130 L 460 110 L 400 95 L 350 90 L 250 90 L 200 95 L 140 110 L 110 130 L 90 150 L 90 185 Z" 
+                      fill="url(#suvBodyGradient)" 
+                      stroke="#0d0d0d" 
                       strokeWidth="2"
-                      filter="url(#carShadow)"
+                      filter="url(#suvShadow)"
                     />
                     
-                    {/* Car Roof */}
+                    {/* SUV Hood */}
                     <path 
-                      d="M 150 100 L 280 90 L 320 100 L 340 120 L 160 120 Z" 
-                      fill="url(#carBodyGradient)" 
-                      stroke="#1a252f" 
+                      d="M 400 95 L 490 130 L 510 150 L 480 135 L 420 115 Z" 
+                      fill="url(#suvBodyGradient)" 
+                      stroke="#0d0d0d" 
+                      strokeWidth="1"
+                    />
+                    
+                    {/* SUV Roof */}
+                    <path 
+                      d="M 140 110 L 200 95 L 400 95 L 460 110 L 440 100 L 380 90 L 220 90 L 160 100 Z" 
+                      fill="url(#suvBodyGradient)" 
+                      stroke="#0d0d0d" 
                       strokeWidth="2"
                     />
                     
                     {/* Front Windshield */}
                     <path 
-                      d="M 280 90 L 320 100 L 340 120 L 300 110 Z" 
-                      fill="url(#windowGradient)" 
-                      stroke="#4682b4" 
+                      d="M 380 90 L 440 100 L 460 110 L 420 105 Z" 
+                      fill="url(#suvWindowGradient)" 
+                      stroke="#2d3748" 
                       strokeWidth="1"
-                      opacity="0.8"
+                      opacity="0.9"
                     />
                     
                     {/* Rear Windshield */}
                     <path 
-                      d="M 150 100 L 200 90 L 220 110 L 160 120 Z" 
-                      fill="url(#windowGradient)" 
-                      stroke="#4682b4" 
+                      d="M 160 100 L 220 90 L 240 105 L 180 110 Z" 
+                      fill="url(#suvWindowGradient)" 
+                      stroke="#2d3748" 
                       strokeWidth="1"
-                      opacity="0.8"
+                      opacity="0.9"
                     />
                     
                     {/* Side Windows */}
-                    <rect x="220" y="110" width="80" height="30" fill="url(#windowGradient)" stroke="#4682b4" strokeWidth="1" opacity="0.8" />
+                    <rect x="240" y="105" width="140" height="35" fill="url(#suvWindowGradient)" stroke="#2d3748" strokeWidth="1" opacity="0.9" />
                     
-                    {/* Front Grille */}
-                    <rect x="400" y="140" width="25" height="25" fill="#1a252f" stroke="#FFD700" strokeWidth="1" />
-                    <rect x="405" y="145" width="15" height="3" fill="#FFD700" />
-                    <rect x="405" y="150" width="15" height="3" fill="#FFD700" />
-                    <rect x="405" y="155" width="15" height="3" fill="#FFD700" />
+                    {/* SUV Front Grille */}
+                    <rect x="480" y="150" width="30" height="35" fill="#0d0d0d" stroke="#FFD700" strokeWidth="2" />
+                    <rect x="485" y="157" width="20" height="4" fill="#FFD700" />
+                    <rect x="485" y="164" width="20" height="4" fill="#FFD700" />
+                    <rect x="485" y="171" width="20" height="4" fill="#FFD700" />
                     
-                    {/* Headlights */}
-                    <circle cx="415" cy="152" r="8" fill="#ffffff" stroke="#FFD700" strokeWidth="2">
+                    {/* Premium Headlights */}
+                    <ellipse cx="495" cy="167" rx="12" ry="8" fill="#ffffff" stroke="#FFD700" strokeWidth="2">
+                      <animate attributeName="opacity" values="0.8;1;0.8" dur="3s" repeatCount="indefinite" />
+                    </ellipse>
+                    <circle cx="495" cy="167" r="4" fill="#FFD700" filter="url(#suvGlow)">
                       <animate attributeName="opacity" values="0.7;1;0.7" dur="2s" repeatCount="indefinite" />
                     </circle>
                     
-                    {/* Taillights */}
-                    <circle cx="85" cy="152" r="6" fill="#ff4444" stroke="#cc0000" strokeWidth="1" />
+                    {/* LED Taillights */}
+                    <rect x="95" y="155" width="15" height="25" fill="#ff2d2d" stroke="#cc0000" strokeWidth="1" rx="3" />
+                    <rect x="98" y="158" width="9" height="3" fill="#ff6666" />
+                    <rect x="98" y="164" width="9" height="3" fill="#ff6666" />
+                    <rect x="98" y="170" width="9" height="3" fill="#ff6666" />
                     
-                    {/* Door Handles */}
-                    <rect x="180" y="145" width="8" height="4" fill="#FFD700" rx="2" />
-                    <rect x="320" y="145" width="8" height="4" fill="#FFD700" rx="2" />
+                    {/* SUV Door Handles */}
+                    <rect x="180" y="160" width="10" height="5" fill="#FFD700" rx="2" />
+                    <rect x="280" y="160" width="10" height="5" fill="#FFD700" rx="2" />
+                    <rect x="380" y="160" width="10" height="5" fill="#FFD700" rx="2" />
+                    
+                    {/* Premium Trim Lines */}
+                    <line x1="120" y1="175" x2="480" y2="175" stroke="url(#suvTrimGradient)" strokeWidth="2" opacity="0.8" />
+                    <line x1="120" y1="180" x2="480" y2="180" stroke="url(#suvTrimGradient)" strokeWidth="1" opacity="0.6" />
                     
                     {/* Front Wheel */}
                     <g className="wheel-front">
-                      <circle cx="350" cy="180" r="25" fill="url(#wheelGradient)" stroke="#1a252f" strokeWidth="3" />
-                      <circle cx="350" cy="180" r="15" fill="#2c3e50" stroke="#FFD700" strokeWidth="2" />
-                      <g className="wheel-spokes animate-spin-wheel" style={{transformOrigin: '350px 180px'}}>
-                        <line x1="335" y1="180" x2="365" y2="180" stroke="#FFD700" strokeWidth="2" />
-                        <line x1="350" y1="165" x2="350" y2="195" stroke="#FFD700" strokeWidth="2" />
-                        <line x1="340" y1="170" x2="360" y2="190" stroke="#FFD700" strokeWidth="1" />
-                        <line x1="360" y1="170" x2="340" y2="190" stroke="#FFD700" strokeWidth="1" />
+                      <circle cx="400" cy="200" r="30" fill="url(#suvWheelGradient)" stroke="#0d0d0d" strokeWidth="3" />
+                      <circle cx="400" cy="200" r="20" fill="#1a1a1a" stroke="#FFD700" strokeWidth="2" />
+                      <g className="wheel-spokes animate-spin-wheel" style={{transformOrigin: '400px 200px'}}>
+                        <line x1="380" y1="200" x2="420" y2="200" stroke="#FFD700" strokeWidth="3" />
+                        <line x1="400" y1="180" x2="400" y2="220" stroke="#FFD700" strokeWidth="3" />
+                        <line x1="385" y1="185" x2="415" y2="215" stroke="#FFD700" strokeWidth="2" />
+                        <line x1="415" y1="185" x2="385" y2="215" stroke="#FFD700" strokeWidth="2" />
                       </g>
+                      <circle cx="400" cy="200" r="8" fill="#FFD700" />
                     </g>
                     
                     {/* Rear Wheel */}
                     <g className="wheel-rear">
-                      <circle cx="150" cy="180" r="25" fill="url(#wheelGradient)" stroke="#1a252f" strokeWidth="3" />
-                      <circle cx="150" cy="180" r="15" fill="#2c3e50" stroke="#FFD700" strokeWidth="2" />
-                      <g className="wheel-spokes animate-spin-wheel" style={{transformOrigin: '150px 180px'}}>
-                        <line x1="135" y1="180" x2="165" y2="180" stroke="#FFD700" strokeWidth="2" />
-                        <line x1="150" y1="165" x2="150" y2="195" stroke="#FFD700" strokeWidth="2" />
-                        <line x1="140" y1="170" x2="160" y2="190" stroke="#FFD700" strokeWidth="1" />
-                        <line x1="160" y1="170" x2="140" y2="190" stroke="#FFD700" strokeWidth="1" />
+                      <circle cx="200" cy="200" r="30" fill="url(#suvWheelGradient)" stroke="#0d0d0d" strokeWidth="3" />
+                      <circle cx="200" cy="200" r="20" fill="#1a1a1a" stroke="#FFD700" strokeWidth="2" />
+                      <g className="wheel-spokes animate-spin-wheel" style={{transformOrigin: '200px 200px'}}>
+                        <line x1="180" y1="200" x2="220" y2="200" stroke="#FFD700" strokeWidth="3" />
+                        <line x1="200" y1="180" x2="200" y2="220" stroke="#FFD700" strokeWidth="3" />
+                        <line x1="185" y1="185" x2="215" y2="215" stroke="#FFD700" strokeWidth="2" />
+                        <line x1="215" y1="185" x2="185" y2="215" stroke="#FFD700" strokeWidth="2" />
                       </g>
+                      <circle cx="200" cy="200" r="8" fill="#FFD700" />
                     </g>
                     
-                    {/* Car Details - Side Lines */}
-                    <line x1="100" y1="160" x2="380" y2="160" stroke="#FFD700" strokeWidth="1" opacity="0.7" />
-                    <line x1="100" y1="165" x2="380" y2="165" stroke="#FFD700" strokeWidth="0.5" opacity="0.5" />
+                    {/* SUV Side Mirror */}
+                    <ellipse cx="460" cy="140" rx="6" ry="8" fill="#1a1a1a" stroke="#FFD700" strokeWidth="1" />
                     
-                    {/* Mirror */}
-                    <ellipse cx="340" cy="135" rx="4" ry="6" fill="#2c3e50" stroke="#FFD700" strokeWidth="1" />
+                    {/* Roof Rails */}
+                    <rect x="160" y="88" width="240" height="4" fill="#FFD700" rx="2" opacity="0.8" />
+                    
+                    {/* Running Boards */}
+                    <rect x="140" y="185" width="320" height="8" fill="#1a1a1a" stroke="#FFD700" strokeWidth="1" rx="4" />
                   </svg>
                 </div>
                 
                 {/* Enhanced Speed Lines */}
                 <div className="speed-lines-container absolute top-1/2 left-0 transform -translate-y-1/2">
-                  <div className="speed-line opacity-70 absolute w-20 h-1 bg-primary blur-sm animate-speed-line-1" style={{top: '-20px'}}></div>
-                  <div className="speed-line opacity-60 absolute w-16 h-1 bg-primary blur-sm animate-speed-line-2" style={{top: '0px'}}></div>
-                  <div className="speed-line opacity-50 absolute w-12 h-1 bg-primary blur-sm animate-speed-line-3" style={{top: '20px'}}></div>
+                  <div className="speed-line opacity-70 absolute w-24 h-1 bg-primary blur-sm animate-speed-line-1" style={{top: '-30px'}}></div>
+                  <div className="speed-line opacity-60 absolute w-20 h-1 bg-primary blur-sm animate-speed-line-2" style={{top: '-10px'}}></div>
+                  <div className="speed-line opacity-50 absolute w-16 h-1 bg-primary blur-sm animate-speed-line-3" style={{top: '10px'}}></div>
+                  <div className="speed-line opacity-40 absolute w-12 h-1 bg-primary blur-sm animate-speed-line-1" style={{top: '30px'}}></div>
                 </div>
                 
                 {/* Exhaust Smoke */}
-                <div className="exhaust-smoke absolute bottom-8 left-4">
-                  <div className="smoke-particle w-3 h-3 bg-gray-400 rounded-full opacity-40 animate-smoke-1"></div>
-                  <div className="smoke-particle w-2 h-2 bg-gray-500 rounded-full opacity-30 animate-smoke-2" style={{marginTop: '-8px', marginLeft: '6px'}}></div>
-                  <div className="smoke-particle w-1 h-1 bg-gray-600 rounded-full opacity-20 animate-smoke-3" style={{marginTop: '-6px', marginLeft: '4px'}}></div>
+                <div className="exhaust-smoke absolute bottom-8 left-8">
+                  <div className="smoke-particle w-4 h-4 bg-gray-400 rounded-full opacity-40 animate-smoke-1"></div>
+                  <div className="smoke-particle w-3 h-3 bg-gray-500 rounded-full opacity-30 animate-smoke-2" style={{marginTop: '-10px', marginLeft: '8px'}}></div>
+                  <div className="smoke-particle w-2 h-2 bg-gray-600 rounded-full opacity-20 animate-smoke-3" style={{marginTop: '-8px', marginLeft: '6px'}}></div>
                 </div>
               </div>
             </div>
