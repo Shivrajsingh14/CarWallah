@@ -24,7 +24,7 @@ const Header = () => {
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
             <a href="#home" className="hover:text-primary transition-colors">Home</a>
-            <a href="#cars" className="hover:text-primary transition-colors">Our Cars</a>
+            <Link to="/cars" className="hover:text-primary transition-colors">Our Cars</Link>
             <a href="#booking" className="hover:text-primary transition-colors">Book Now</a>
             <a href="#about" className="hover:text-primary transition-colors">About</a>
             <a href="#contact" className="hover:text-primary transition-colors">Contact</a>
@@ -64,7 +64,7 @@ const Header = () => {
           <div className="md:hidden bg-carwala-black border-t border-carwala-dark-gray">
             <nav className="flex flex-col space-y-4 py-4">
               <a href="#home" className="hover:text-primary transition-colors">Home</a>
-              <a href="#cars" className="hover:text-primary transition-colors">Our Cars</a>
+              <Link to="/cars" className="hover:text-primary transition-colors">Our Cars</Link>
               <a href="#booking" className="hover:text-primary transition-colors">Book Now</a>
               <a href="#about" className="hover:text-primary transition-colors">About</a>
               <a href="#contact" className="hover:text-primary transition-colors">Contact</a>

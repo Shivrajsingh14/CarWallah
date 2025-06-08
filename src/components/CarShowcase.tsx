@@ -1,5 +1,6 @@
 
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Car, Calendar } from 'lucide-react';
@@ -213,12 +214,14 @@ const CarShowcase = () => {
 
         {/* View All Button */}
         <div className="text-center mt-12">
-          <Button 
-            size="lg"
-            className="bg-carwala-black hover:bg-carwala-dark-gray text-carwala-white px-8 py-3"
-          >
-            View All 16 Cars
-          </Button>
+          <Link to="/cars">
+            <Button 
+              size="lg"
+              className="bg-carwala-black hover:bg-carwala-dark-gray text-carwala-white px-8 py-3"
+            >
+              View All 16 Cars
+            </Button>
+          </Link>
         </div>
       </div>
     </section>
