@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
-interface Car {
+interface CarType {
   id: number;
   name: string;
   type: string;
@@ -20,7 +20,7 @@ interface Car {
   description: string;
 }
 
-const cars: Car[] = [
+const initialCars: CarType[] = [
   {
     id: 1,
     name: "BMW 5 Series",
@@ -52,7 +52,7 @@ const cars: Car[] = [
     seating: 5,
     transmission: "Automatic",
     fuel: "Petrol",
-    status: "booked",
+    status: "available",
     price: 3000,
     image: "/api/placeholder/300/200",
     description: "Elegant Mercedes with cutting-edge technology and comfort."
@@ -76,7 +76,7 @@ const cars: Car[] = [
     seating: 5,
     transmission: "Manual",
     fuel: "Petrol",
-    status: "maintenance",
+    status: "available",
     price: 1500,
     image: "/api/placeholder/300/200",
     description: "Efficient and comfortable city car for daily commuting."
@@ -124,7 +124,7 @@ const cars: Car[] = [
     seating: 7,
     transmission: "Automatic",
     fuel: "Diesel",
-    status: "booked",
+    status: "available",
     price: 4500,
     image: "/api/placeholder/300/200",
     description: "Ultimate luxury SUV with spacious cabin and advanced features."
@@ -160,7 +160,7 @@ const cars: Car[] = [
     seating: 5,
     transmission: "Automatic",
     fuel: "Diesel",
-    status: "maintenance",
+    status: "available",
     price: 2300,
     image: "/api/placeholder/300/200",
     description: "Stylish SUV with modern design and excellent performance."
@@ -196,7 +196,7 @@ const cars: Car[] = [
     seating: 5,
     transmission: "Automatic",
     fuel: "Petrol",
-    status: "booked",
+    status: "available",
     price: 2600,
     image: "/api/placeholder/300/200",
     description: "Elegant Mercedes sedan with premium comfort and technology."
@@ -219,6 +219,7 @@ const Cars = () => {
   const [selectedFilter, setSelectedFilter] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
+  const [cars, setCars] = useState(initialCars);
 
   const getStatusBadge = (status: string) => {
     const baseClasses = "px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wide";
@@ -232,6 +233,13 @@ const Cars = () => {
         return `${baseClasses} bg-yellow-100 text-yellow-800 border border-yellow-300`;
       default:
         return baseClasses;
+    }
+  };
+
+  const handleBookNow = (car: CarType) => {
+    if (car.status === 'available') {
+      // Navigate to home page booking section
+      window.location.href = '/#booking';
     }
   };
 
@@ -388,6 +396,7 @@ const Cars = () => {
                         <span className="text-gray-600 text-sm">/day</span>
                       </div>
                       <Button 
+                        onClick={() => handleBookNow(car)}
                         className={`${
                           car.status === 'available' 
                             ? 'bg-primary hover:bg-primary/90 text-carwala-black' 

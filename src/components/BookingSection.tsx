@@ -12,19 +12,35 @@ import { CalendarIcon, Car, Clock, MapPin, Phone, User, Mail, CreditCard } from 
 import { format, differenceInDays, isAfter, isBefore, addDays } from 'date-fns';
 import { cn } from '@/lib/utils';
 
-// Car data with pricing
-const cars = [
-  { id: 1, name: 'Mahindra Thar', type: 'SUV', price: 2500, image: '🚙', fuel: 'Diesel', seats: 4 },
-  { id: 2, name: 'Hyundai Creta', type: 'SUV', price: 2200, image: '🚗', fuel: 'Petrol', seats: 5 },
-  { id: 3, name: 'Toyota Innova', type: 'MPV', price: 2800, image: '🚐', fuel: 'Diesel', seats: 7 },
-  { id: 4, name: 'Maruti Swift', type: 'Hatchback', price: 1500, image: '🚗', fuel: 'Petrol', seats: 4 },
-  { id: 5, name: 'Honda City', type: 'Sedan', price: 2000, image: '🚗', fuel: 'Petrol', seats: 5 },
-  { id: 6, name: 'Mahindra Scorpio', type: 'SUV', price: 2600, image: '🚙', fuel: 'Diesel', seats: 7 },
-  { id: 7, name: 'Tata Nexon', type: 'SUV', price: 1800, image: '🚗', fuel: 'Petrol', seats: 5 },
-  { id: 8, name: 'Ford EcoSport', type: 'SUV', price: 1900, image: '🚗', fuel: 'Petrol', seats: 5 },
+// Car data with pricing and booking status
+const initialCars = [
+  { id: 1, name: 'Mahindra Thar', type: 'SUV', price: 2500, image: '🚙', fuel: 'Diesel', seats: 4, isBooked: false, bookedDates: [] },
+  { id: 2, name: 'Hyundai Creta', type: 'SUV', price: 2200, image: '🚗', fuel: 'Petrol', seats: 5, isBooked: false, bookedDates: [] },
+  { id: 3, name: 'Toyota Innova', type: 'MPV', price: 2800, image: '🚐', fuel: 'Diesel', seats: 7, isBooked: false, bookedDates: [] },
+  { id: 4, name: 'Maruti Swift', type: 'Hatchback', price: 1500, image: '🚗', fuel: 'Petrol', seats: 4, isBooked: false, bookedDates: [] },
+  { id: 5, name: 'Honda City', type: 'Sedan', price: 2000, image: '🚗', fuel: 'Petrol', seats: 5, isBooked: false, bookedDates: [] },
+  { id: 6, name: 'Mahindra Scorpio', type: 'SUV', price: 2600, image: '🚙', fuel: 'Diesel', seats: 7, isBooked: false, bookedDates: [] },
+  { id: 7, name: 'Tata Nexon', type: 'SUV', price: 1800, image: '🚗', fuel: 'Petrol', seats: 5, isBooked: false, bookedDates: [] },
+  { id: 8, name: 'Ford EcoSport', type: 'SUV', price: 1900, image: '🚗', fuel: 'Petrol', seats: 5, isBooked: false, bookedDates: [] },
 ];
 
+interface Booking {
+  id: string;
+  carId: number;
+  carName: string;
+  startDate: string;
+  endDate: string;
+  customerName: string;
+  customerEmail: string;
+  customerPhone: string;
+  totalDays: number;
+  totalPrice: number;
+  bookingDate: string;
+}
+
 const BookingSection = () => {
+  const [cars, setCars] = useState(initialCars);
+  const [bookings, setBookings] = useState<Booking[]>([]);
   const [selectedCar, setSelectedCar] = useState<typeof cars[0] | null>(null);
   const [startDate, setStartDate] = useState<Date>();
   const [endDate, setEndDate] = useState<Date>();
@@ -51,6 +67,30 @@ const BookingSection = () => {
   const handleCarSelect = (carId: string) => {
     const car = cars.find(c => c.id === parseInt(carId));
     setSelectedCar(car || null);
+  };
+
+  const handleDirectBooking = (car: typeof cars[0]) => {
+    setSelectedCar(car);
+    // Scroll to booking form
+    const bookingForm = document.querySelector('.booking-form');
+    if (bookingForm) {
+      bookingForm.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const checkDateAvailability = (carId: number, start: Date, end: Date) => {
+    const carBookings = bookings.filter(booking => booking.carId === carId);
+    
+    for (const booking of carBookings) {
+      const bookingStart = new Date(booking.startDate);
+      const bookingEnd = new Date(booking.endDate);
+      
+      // Check if dates overlap
+      if ((start <= bookingEnd) && (end >= bookingStart)) {
+        return false;
+      }
+    }
+    return true;
   };
 
   const handleBooking = async () => {
@@ -91,31 +131,57 @@ const BookingSection = () => {
       return;
     }
 
+    // Check availability
+    if (!checkDateAvailability(selectedCar.id, startDate, endDate)) {
+      toast({
+        title: "Car not available",
+        description: "This car is already booked for the selected dates",
+        variant: "destructive"
+      });
+      return;
+    }
+
     setIsLoading(true);
 
     try {
       // Simulate booking process
       await new Promise(resolve => setTimeout(resolve, 2000));
 
-      // In a real app, this would send data to backend
-      const bookingData = {
+      const bookingId = Math.random().toString(36).substr(2, 9).toUpperCase();
+      
+      const newBooking: Booking = {
+        id: bookingId,
         carId: selectedCar.id,
         carName: selectedCar.name,
         startDate: format(startDate, 'yyyy-MM-dd'),
         endDate: format(endDate, 'yyyy-MM-dd'),
+        customerName: customerInfo.name,
+        customerEmail: customerInfo.email,
+        customerPhone: customerInfo.phone,
         totalDays,
         totalPrice,
-        advancePayment,
-        customer: customerInfo,
-        bookingId: Math.random().toString(36).substr(2, 9).toUpperCase(),
-        status: 'confirmed'
+        bookingDate: format(new Date(), 'yyyy-MM-dd HH:mm:ss')
       };
 
-      console.log('Booking Data:', bookingData);
+      // Add booking to state
+      setBookings(prev => [...prev, newBooking]);
+
+      // Update car status if booking covers current date
+      const today = new Date();
+      if (startDate <= today && endDate >= today) {
+        setCars(prev => prev.map(car => 
+          car.id === selectedCar.id 
+            ? { ...car, isBooked: true }
+            : car
+        ));
+      }
+
+      console.log('New Booking:', newBooking);
+      console.log('All Bookings:', [...bookings, newBooking]);
 
       toast({
         title: "Booking Confirmed! 🎉",
-        description: `Your ${selectedCar.name} is booked for ${totalDays} days. Booking ID: ${bookingData.bookingId}`,
+        description: `Your ${selectedCar.name} is booked for ${totalDays} days. Booking ID: ${bookingId}`,
       });
 
       // Reset form
@@ -147,7 +213,45 @@ const BookingSection = () => {
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
+        {/* Quick Car Selection Grid */}
+        <div className="mb-12">
+          <h3 className="text-2xl font-bold text-carwala-black mb-6 text-center">Choose Your Car</h3>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {cars.map((car) => (
+              <Card key={car.id} className="hover:shadow-xl transition-shadow duration-300 relative">
+                <CardContent className="p-4">
+                  <div className="text-center space-y-3">
+                    <div className="text-4xl">{car.image}</div>
+                    <h4 className="font-semibold text-lg">{car.name}</h4>
+                    <div className="text-sm text-gray-600">
+                      {car.type} • {car.fuel} • {car.seats} seats
+                    </div>
+                    <div className="text-xl font-bold text-primary">₹{car.price}/day</div>
+                    
+                    {car.isBooked && (
+                      <div className="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 rounded-full text-xs">
+                        Booked
+                      </div>
+                    )}
+                    
+                    <Button 
+                      onClick={() => handleDirectBooking(car)}
+                      disabled={car.isBooked}
+                      className={`w-full ${car.isBooked 
+                        ? 'bg-gray-400 cursor-not-allowed' 
+                        : 'bg-primary hover:bg-primary/90 text-carwala-black'
+                      }`}
+                    >
+                      {car.isBooked ? 'Currently Booked' : 'Book Now'}
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+
+        <div className="grid lg:grid-cols-2 gap-8 max-w-6xl mx-auto booking-form">
           {/* Car Selection */}
           <Card className="hover:shadow-xl transition-shadow duration-300">
             <CardHeader>
@@ -158,12 +262,12 @@ const BookingSection = () => {
               <CardDescription>Select from our premium fleet</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
-              <Select onValueChange={handleCarSelect}>
+              <Select onValueChange={handleCarSelect} value={selectedCar?.id?.toString() || ""}>
                 <SelectTrigger>
                   <SelectValue placeholder="Select a car" />
                 </SelectTrigger>
                 <SelectContent>
-                  {cars.map((car) => (
+                  {cars.filter(car => !car.isBooked).map((car) => (
                     <SelectItem key={car.id} value={car.id.toString()}>
                       <div className="flex items-center gap-2">
                         <span className="text-lg">{car.image}</span>
@@ -349,15 +453,29 @@ const BookingSection = () => {
                 </div>
               )}
 
-              {/* Contact Info */}
-              <div className="bg-primary/10 p-4 rounded-lg">
-                <h4 className="font-medium mb-2 flex items-center gap-2">
-                  <Phone className="w-4 h-4" />
-                  Need Help?
+              {/* Enhanced Contact Info */}
+              <div className="bg-primary/10 p-6 rounded-lg">
+                <h4 className="font-medium mb-4 flex items-center gap-2">
+                  <Phone className="w-5 h-5" />
+                  Need Help? Contact Owner
                 </h4>
-                <p className="text-sm text-gray-600">
-                  Call us at <span className="font-semibold text-primary">+91 6376390767</span> for instant assistance
-                </p>
+                <div className="flex items-center space-x-6">
+                  <img 
+                    src="/lovable-uploads/3190a23b-f24b-465b-a428-4bc1c14266c1.png" 
+                    alt="Yashpal Singh Jhala - Owner"
+                    className="w-20 h-20 rounded-full object-cover border-3 border-primary"
+                  />
+                  <div className="flex-1">
+                    <p className="text-lg font-semibold text-carwala-black mb-1">Yashpal Singh Jhala</p>
+                    <p className="text-sm text-gray-600 mb-2">Owner & Founder</p>
+                    <p className="text-xl font-bold text-primary hover:text-carwala-yellow transition-colors duration-300 cursor-pointer">
+                      +91 6376390767
+                    </p>
+                    <p className="text-sm text-gray-600 mt-2">
+                      Call for instant assistance & special discounts
+                    </p>
+                  </div>
+                </div>
               </div>
 
               <Button 
@@ -409,6 +527,31 @@ const BookingSection = () => {
             <p className="text-sm text-gray-600">Round-the-clock assistance</p>
           </div>
         </div>
+
+        {/* Booking History Display (for demo purposes) */}
+        {bookings.length > 0 && (
+          <div className="mt-12 max-w-4xl mx-auto">
+            <h3 className="text-2xl font-bold text-carwala-black mb-6 text-center">Recent Bookings</h3>
+            <div className="space-y-4">
+              {bookings.slice(-3).map((booking) => (
+                <Card key={booking.id} className="p-4">
+                  <div className="flex justify-between items-center">
+                    <div>
+                      <h4 className="font-semibold">{booking.carName}</h4>
+                      <p className="text-sm text-gray-600">
+                        {booking.startDate} to {booking.endDate} • {booking.totalDays} days
+                      </p>
+                    </div>
+                    <div className="text-right">
+                      <p className="font-bold text-primary">₹{booking.totalPrice.toLocaleString()}</p>
+                      <p className="text-xs text-gray-500">Booking ID: {booking.id}</p>
+                    </div>
+                  </div>
+                </Card>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </section>
   );

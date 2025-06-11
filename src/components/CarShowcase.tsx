@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -17,7 +18,7 @@ interface CarProps {
   description: string;
 }
 
-const cars: CarProps[] = [
+const initialCars: CarProps[] = [
   {
     id: 1,
     name: "BMW 5 Series",
@@ -49,7 +50,7 @@ const cars: CarProps[] = [
     seating: 5,
     transmission: "Automatic",
     fuel: "Petrol",
-    status: "booked",
+    status: "available",
     price: 3000,
     image: "/api/placeholder/300/200",
     description: "Elegant Mercedes with cutting-edge technology and comfort."
@@ -73,7 +74,7 @@ const cars: CarProps[] = [
     seating: 5,
     transmission: "Manual",
     fuel: "Petrol",
-    status: "maintenance",
+    status: "available",
     price: 1500,
     image: "/api/placeholder/300/200",
     description: "Efficient and comfortable city car for daily commuting."
@@ -121,7 +122,7 @@ const cars: CarProps[] = [
     seating: 7,
     transmission: "Automatic",
     fuel: "Diesel",
-    status: "booked",
+    status: "available",
     price: 4500,
     image: "/api/placeholder/300/200",
     description: "Ultimate luxury SUV with spacious cabin and advanced features."
@@ -157,7 +158,7 @@ const cars: CarProps[] = [
     seating: 5,
     transmission: "Automatic",
     fuel: "Diesel",
-    status: "maintenance",
+    status: "available",
     price: 2300,
     image: "/api/placeholder/300/200",
     description: "Stylish SUV with modern design and excellent performance."
@@ -193,7 +194,7 @@ const cars: CarProps[] = [
     seating: 5,
     transmission: "Automatic",
     fuel: "Petrol",
-    status: "booked",
+    status: "available",
     price: 2600,
     image: "/api/placeholder/300/200",
     description: "Elegant Mercedes sedan with premium comfort and technology."
@@ -214,6 +215,7 @@ const cars: CarProps[] = [
 
 const CarShowcase = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [cars, setCars] = useState(initialCars);
   const carsPerPage = 4;
 
   const nextSlide = () => {
@@ -226,6 +228,16 @@ const CarShowcase = () => {
     setCurrentIndex((prev) => 
       prev === 0 ? Math.max(0, cars.length - carsPerPage) : prev - carsPerPage
     );
+  };
+
+  const handleBookNow = (car: CarProps) => {
+    if (car.status === 'available') {
+      // Scroll to booking section
+      const bookingSection = document.getElementById('booking');
+      if (bookingSection) {
+        bookingSection.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
   };
 
   const visibleCars = cars.slice(currentIndex, currentIndex + carsPerPage);
@@ -274,7 +286,7 @@ const CarShowcase = () => {
           {visibleCars.map((car, index) => (
             <Card 
               key={car.id} 
-              className="overflow-hidden hover-lift border-0 shadow-lg bg-white"
+              className="overflow-hidden hover-lift border-0 shadow-lg bg-white relative"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               <div className="relative">
@@ -283,8 +295,15 @@ const CarShowcase = () => {
                   alt={car.name}
                   className="w-full h-48 object-cover bg-carwala-black"
                 />
-                <div className="absolute top-4 right-4 bg-primary text-carwala-black px-2 py-1 rounded text-xs font-semibold">
-                  Available
+                <div className={`absolute top-4 right-4 px-2 py-1 rounded text-xs font-semibold ${
+                  car.status === 'available' 
+                    ? 'bg-primary text-carwala-black' 
+                    : car.status === 'booked'
+                    ? 'bg-red-500 text-white'
+                    : 'bg-yellow-500 text-carwala-black'
+                }`}>
+                  {car.status === 'available' ? 'Available' : 
+                   car.status === 'booked' ? 'Booked' : 'Maintenance'}
                 </div>
               </div>
               
@@ -319,8 +338,17 @@ const CarShowcase = () => {
                       <span className="text-2xl font-bold text-carwala-black">₹{car.price}</span>
                       <span className="text-gray-600 text-sm">/day</span>
                     </div>
-                    <Button className="bg-primary hover:bg-primary/90 text-carwala-black">
-                      Book Now
+                    <Button 
+                      onClick={() => handleBookNow(car)}
+                      disabled={car.status !== 'available'}
+                      className={`${
+                        car.status === 'available' 
+                          ? 'bg-primary hover:bg-primary/90 text-carwala-black' 
+                          : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                      }`}
+                    >
+                      {car.status === 'available' ? 'Book Now' : 
+                       car.status === 'booked' ? 'Booked' : 'Under Maintenance'}
                     </Button>
                   </div>
                 </div>
