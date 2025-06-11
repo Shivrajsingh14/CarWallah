@@ -4,6 +4,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Car, Users, Fuel, Settings, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import BookingModal from './BookingModal';
 
 interface CarProps {
   id: number;
@@ -16,6 +17,20 @@ interface CarProps {
   price: number;
   image: string;
   description: string;
+}
+
+interface Booking {
+  id: string;
+  carId: number;
+  carName: string;
+  startDate: string;
+  endDate: string;
+  customerName: string;
+  customerEmail: string;
+  customerPhone: string;
+  totalDays: number;
+  totalPrice: number;
+  bookingDate: string;
 }
 
 const initialCars: CarProps[] = [
@@ -216,6 +231,9 @@ const initialCars: CarProps[] = [
 const CarShowcase = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [cars, setCars] = useState(initialCars);
+  const [bookings, setBookings] = useState<Booking[]>([]);
+  const [selectedCar, setSelectedCar] = useState<CarProps | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const carsPerPage = 4;
 
   const nextSlide = () => {
@@ -232,11 +250,25 @@ const CarShowcase = () => {
 
   const handleBookNow = (car: CarProps) => {
     if (car.status === 'available') {
-      // Scroll to booking section
-      const bookingSection = document.getElementById('booking');
-      if (bookingSection) {
-        bookingSection.scrollIntoView({ behavior: 'smooth' });
-      }
+      setSelectedCar(car);
+      setIsModalOpen(true);
+    }
+  };
+
+  const handleBookingComplete = (booking: Booking) => {
+    setBookings(prev => [...prev, booking]);
+    
+    // Update car status if booking covers current date
+    const today = new Date();
+    const bookingStart = new Date(booking.startDate);
+    const bookingEnd = new Date(booking.endDate);
+    
+    if (bookingStart <= today && bookingEnd >= today) {
+      setCars(prev => prev.map(car => 
+        car.id === booking.carId 
+          ? { ...car, status: 'booked' as const }
+          : car
+      ));
     }
   };
 
@@ -286,16 +318,16 @@ const CarShowcase = () => {
           {visibleCars.map((car, index) => (
             <Card 
               key={car.id} 
-              className="overflow-hidden hover-lift border-0 shadow-lg bg-white relative"
+              className="overflow-hidden hover-lift border-0 shadow-lg bg-white relative group hover:shadow-2xl transition-all duration-300"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               <div className="relative">
                 <img 
                   src={car.image} 
                   alt={car.name}
-                  className="w-full h-48 object-cover bg-carwala-black"
+                  className="w-full h-48 object-cover bg-carwala-black group-hover:scale-105 transition-transform duration-300"
                 />
-                <div className={`absolute top-4 right-4 px-2 py-1 rounded text-xs font-semibold ${
+                <div className={`absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-semibold ${
                   car.status === 'available' 
                     ? 'bg-primary text-carwala-black' 
                     : car.status === 'booked'
@@ -305,12 +337,19 @@ const CarShowcase = () => {
                   {car.status === 'available' ? 'Available' : 
                    car.status === 'booked' ? 'Booked' : 'Maintenance'}
                 </div>
+                {car.status === 'available' && (
+                  <div className="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                    <div className="bg-white/90 backdrop-blur-sm px-4 py-2 rounded-lg">
+                      <span className="text-primary font-semibold">Click to Book!</span>
+                    </div>
+                  </div>
+                )}
               </div>
               
               <CardContent className="p-6">
                 <div className="space-y-4">
                   <div>
-                    <h3 className="text-xl font-bold text-carwala-black">{car.name}</h3>
+                    <h3 className="text-xl font-bold text-carwala-black group-hover:text-primary transition-colors">{car.name}</h3>
                     <p className="text-gray-600">{car.type}</p>
                   </div>
 
@@ -341,7 +380,7 @@ const CarShowcase = () => {
                     <Button 
                       onClick={() => handleBookNow(car)}
                       disabled={car.status !== 'available'}
-                      className={`${
+                      className={`group-hover:scale-105 transition-transform ${
                         car.status === 'available' 
                           ? 'bg-primary hover:bg-primary/90 text-carwala-black' 
                           : 'bg-gray-300 text-gray-500 cursor-not-allowed'
@@ -362,7 +401,7 @@ const CarShowcase = () => {
           <Link to="/cars">
             <Button 
               size="lg"
-              className="bg-primary hover:bg-primary/90 text-carwala-black font-bold px-8 py-4 text-lg"
+              className="bg-primary hover:bg-primary/90 text-carwala-black font-bold px-8 py-4 text-lg hover:scale-105 transition-transform"
             >
               View Our Complete Fleet
             </Button>
@@ -371,6 +410,15 @@ const CarShowcase = () => {
             Explore all 16 premium vehicles in our collection
           </p>
         </div>
+
+        {/* Booking Modal */}
+        <BookingModal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          car={selectedCar}
+          existingBookings={bookings}
+          onBookingComplete={handleBookingComplete}
+        />
       </div>
     </section>
   );

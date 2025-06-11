@@ -2,10 +2,11 @@
 import { useState } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Car, Calendar, Users, Fuel, Settings, ArrowLeft, Search, Filter } from 'lucide-react';
+import { Car, Calendar, Users, Fuel, Settings, ArrowLeft, Search, Filter, Star, Shield, Zap } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import BookingModal from '@/components/BookingModal';
 
 interface CarType {
   id: number;
@@ -18,6 +19,20 @@ interface CarType {
   price: number;
   image: string;
   description: string;
+}
+
+interface Booking {
+  id: string;
+  carId: number;
+  carName: string;
+  startDate: string;
+  endDate: string;
+  customerName: string;
+  customerEmail: string;
+  customerPhone: string;
+  totalDays: number;
+  totalPrice: number;
+  bookingDate: string;
 }
 
 const initialCars: CarType[] = [
@@ -220,6 +235,9 @@ const Cars = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
   const [cars, setCars] = useState(initialCars);
+  const [bookings, setBookings] = useState<Booking[]>([]);
+  const [selectedCar, setSelectedCar] = useState<CarType | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const getStatusBadge = (status: string) => {
     const baseClasses = "px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wide";
@@ -238,8 +256,25 @@ const Cars = () => {
 
   const handleBookNow = (car: CarType) => {
     if (car.status === 'available') {
-      // Navigate to home page booking section
-      window.location.href = '/#booking';
+      setSelectedCar(car);
+      setIsModalOpen(true);
+    }
+  };
+
+  const handleBookingComplete = (booking: Booking) => {
+    setBookings(prev => [...prev, booking]);
+    
+    // Update car status if booking covers current date
+    const today = new Date();
+    const bookingStart = new Date(booking.startDate);
+    const bookingEnd = new Date(booking.endDate);
+    
+    if (bookingStart <= today && bookingEnd >= today) {
+      setCars(prev => prev.map(car => 
+        car.id === booking.carId 
+          ? { ...car, status: 'booked' as const }
+          : car
+      ));
     }
   };
 
@@ -256,28 +291,45 @@ const Cars = () => {
     <div className="min-h-screen bg-carwala-white">
       <Header />
       
-      {/* Hero Section */}
-      <section className="pt-20 pb-12 bg-gradient-to-br from-carwala-black via-carwala-dark-gray to-carwala-black">
-        <div className="container mx-auto px-4">
+      {/* Enhanced Hero Section */}
+      <section className="pt-20 pb-12 bg-gradient-to-br from-carwala-black via-carwala-dark-gray to-carwala-black relative overflow-hidden">
+        <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="%23FFD700" fill-opacity="0.1"%3E%3Cpath d="M20 20c0 11.046-8.954 20-20 20v20h40V20H20z"/%3E%3C/g%3E%3C/svg%3E')] opacity-20"></div>
+        <div className="container mx-auto px-4 relative z-10">
           <div className="text-center text-carwala-white mb-8">
             <div className="flex items-center justify-center mb-6">
-              <Link to="/" className="flex items-center text-primary hover:text-carwala-white transition-colors mr-4">
-                <ArrowLeft className="w-5 h-5 mr-2" />
+              <Link to="/" className="flex items-center text-primary hover:text-carwala-white transition-colors mr-4 group">
+                <ArrowLeft className="w-5 h-5 mr-2 group-hover:-translate-x-1 transition-transform" />
                 Back to Home
               </Link>
             </div>
             <h1 className="text-5xl md:text-6xl font-bold mb-4 animate-fade-in-up">
               Our Premium <span className="text-primary">Fleet</span>
             </h1>
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto animate-fade-in-up animation-delay-200">
+            <p className="text-xl text-gray-300 max-w-3xl mx-auto animate-fade-in-up animation-delay-200 mb-8">
               Discover our complete collection of 16 premium vehicles, each maintained to perfection for your journey
             </p>
+            
+            {/* Feature highlights */}
+            <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+              <div className="flex items-center justify-center gap-3 bg-white/10 backdrop-blur-sm rounded-lg p-4">
+                <Star className="w-6 h-6 text-primary" />
+                <span className="text-white font-medium">Premium Quality</span>
+              </div>
+              <div className="flex items-center justify-center gap-3 bg-white/10 backdrop-blur-sm rounded-lg p-4">
+                <Shield className="w-6 h-6 text-primary" />
+                <span className="text-white font-medium">Fully Insured</span>
+              </div>
+              <div className="flex items-center justify-center gap-3 bg-white/10 backdrop-blur-sm rounded-lg p-4">
+                <Zap className="w-6 h-6 text-primary" />
+                <span className="text-white font-medium">Instant Booking</span>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Filters Section */}
-      <section className="py-8 bg-white shadow-lg sticky top-20 z-40">
+      {/* Enhanced Filters Section */}
+      <section className="py-8 bg-white shadow-lg sticky top-20 z-40 border-b border-primary/20">
         <div className="container mx-auto px-4">
           <div className="flex flex-col lg:flex-row gap-6 items-center">
             {/* Search */}
@@ -286,7 +338,7 @@ const Cars = () => {
               <input
                 type="text"
                 placeholder="Search cars..."
-                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all hover:border-primary/50"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
@@ -298,9 +350,9 @@ const Cars = () => {
                 <Button
                   key={filter}
                   variant={selectedFilter === filter ? "default" : "outline"}
-                  className={`capitalize ${
+                  className={`capitalize transition-all hover:scale-105 ${
                     selectedFilter === filter 
-                      ? 'bg-primary text-carwala-black' 
+                      ? 'bg-primary text-carwala-black shadow-lg' 
                       : 'border-primary text-primary hover:bg-primary hover:text-carwala-black'
                   }`}
                   onClick={() => setSelectedFilter(filter)}
@@ -311,10 +363,10 @@ const Cars = () => {
             </div>
 
             {/* Status Filter */}
-            <div className="flex gap-2">
-              <Filter className="w-5 h-5 text-gray-500 mt-2" />
+            <div className="flex gap-2 items-center">
+              <Filter className="w-5 h-5 text-gray-500" />
               <select
-                className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+                className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all hover:border-primary/50"
                 value={statusFilter}
                 onChange={(e) => setStatusFilter(e.target.value)}
               >
@@ -329,26 +381,27 @@ const Cars = () => {
       </section>
 
       {/* Cars Grid */}
-      <section className="py-16">
+      <section className="py-16 bg-gradient-to-br from-carwala-white to-gray-50">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-carwala-black mb-4">
               Found {filteredCars.length} Vehicle{filteredCars.length !== 1 ? 's' : ''}
             </h2>
+            <div className="w-20 h-1 bg-primary mx-auto rounded-full"></div>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
             {filteredCars.map((car, index) => (
               <Card 
                 key={car.id} 
-                className="overflow-hidden hover-lift border-0 shadow-lg bg-white"
+                className="overflow-hidden hover-lift border-0 shadow-lg bg-white group hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
                 <div className="relative">
                   <img 
                     src={car.image} 
                     alt={car.name}
-                    className="w-full h-48 object-cover bg-carwala-black"
+                    className="w-full h-48 object-cover bg-carwala-black group-hover:scale-110 transition-transform duration-500"
                   />
                   <div className="absolute top-4 right-4">
                     <span className={getStatusBadge(car.status)}>
@@ -356,8 +409,19 @@ const Cars = () => {
                     </span>
                   </div>
                   {car.status === 'available' && (
-                    <div className="absolute top-4 left-4 bg-primary text-carwala-black px-2 py-1 rounded text-xs font-semibold">
+                    <div className="absolute top-4 left-4 bg-primary text-carwala-black px-3 py-1 rounded-full text-xs font-semibold animate-pulse">
                       Available Now
+                    </div>
+                  )}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  {car.status === 'available' && (
+                    <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <Button 
+                        onClick={() => handleBookNow(car)}
+                        className="w-full bg-primary hover:bg-primary/90 text-carwala-black font-semibold transform scale-95 hover:scale-100 transition-transform"
+                      >
+                        Quick Book
+                      </Button>
                     </div>
                   )}
                 </div>
@@ -365,11 +429,11 @@ const Cars = () => {
                 <CardContent className="p-6">
                   <div className="space-y-4">
                     <div>
-                      <h3 className="text-xl font-bold text-carwala-black">{car.name}</h3>
+                      <h3 className="text-xl font-bold text-carwala-black group-hover:text-primary transition-colors">{car.name}</h3>
                       <p className="text-gray-600">{car.type}</p>
                     </div>
 
-                    <p className="text-sm text-gray-700">{car.description}</p>
+                    <p className="text-sm text-gray-700 line-clamp-2">{car.description}</p>
 
                     <div className="grid grid-cols-2 gap-3 text-sm">
                       <div className="flex items-center space-x-1">
@@ -397,7 +461,7 @@ const Cars = () => {
                       </div>
                       <Button 
                         onClick={() => handleBookNow(car)}
-                        className={`${
+                        className={`transition-all hover:scale-105 ${
                           car.status === 'available' 
                             ? 'bg-primary hover:bg-primary/90 text-carwala-black' 
                             : 'bg-gray-300 text-gray-500 cursor-not-allowed'
@@ -423,6 +487,15 @@ const Cars = () => {
           )}
         </div>
       </section>
+
+      {/* Booking Modal */}
+      <BookingModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        car={selectedCar}
+        existingBookings={bookings}
+        onBookingComplete={handleBookingComplete}
+      />
 
       <Footer />
     </div>
