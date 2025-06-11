@@ -101,7 +101,7 @@ const HeroSection = () => {
                 {/* Car Shadow */}
                 <div className="car-shadow absolute bottom-0 left-1/2 transform -translate-x-1/2 w-[500px] h-8 bg-black opacity-30 rounded-full blur-sm"></div>
                 
-                {/* Interactive Mahindra Thar SVG */}
+                {/* Interactive Mahindra Thar SVG with Drive-in Animation */}
                 <div className="thar-body relative svg-car-drive-in group-hover:animate-bounce-subtle">
                   <svg 
                     width="650" 
@@ -209,11 +209,11 @@ const HeroSection = () => {
                     {/* Rugged Side Steps */}
                     <rect x="120" y="240" width="360" height="12" fill="#1a1a1a" stroke="#FFD700" strokeWidth="2" rx="6" />
                     
-                    {/* Thar Signature Wheels - Off-road */}
-                    <g className="wheel-front group-hover:animate-spin-wheel">
+                    {/* Thar Signature Wheels - Off-road with Spinning Animation */}
+                    <g className="wheel-front">
                       <circle cx="420" cy="250" r="35" fill="url(#tharWheelGradient)" stroke="#FFD700" strokeWidth="4" />
                       <circle cx="420" cy="250" r="25" fill="#1a1a1a" stroke="#FFD700" strokeWidth="3" />
-                      <g style={{transformOrigin: '420px 250px'}}>
+                      <g className="animate-spin-wheel" style={{transformOrigin: '420px 250px'}}>
                         <line x1="395" y1="250" x2="445" y2="250" stroke="#FFD700" strokeWidth="4" />
                         <line x1="420" y1="225" x2="420" y2="275" stroke="#FFD700" strokeWidth="4" />
                         <line x1="400" y1="230" x2="440" y2="270" stroke="#FFD700" strokeWidth="3" />
@@ -226,10 +226,10 @@ const HeroSection = () => {
                       <circle cx="420" cy="250" r="10" fill="#FFD700" />
                     </g>
                     
-                    <g className="wheel-rear group-hover:animate-spin-wheel">
+                    <g className="wheel-rear">
                       <circle cx="180" cy="250" r="35" fill="url(#tharWheelGradient)" stroke="#FFD700" strokeWidth="4" />
                       <circle cx="180" cy="250" r="25" fill="#1a1a1a" stroke="#FFD700" strokeWidth="3" />
-                      <g style={{transformOrigin: '180px 250px'}}>
+                      <g className="animate-spin-wheel" style={{transformOrigin: '180px 250px'}}>
                         <line x1="155" y1="250" x2="205" y2="250" stroke="#FFD700" strokeWidth="4" />
                         <line x1="180" y1="225" x2="180" y2="275" stroke="#FFD700" strokeWidth="4" />
                         <line x1="160" y1="230" x2="200" y2="270" stroke="#FFD700" strokeWidth="3" />
