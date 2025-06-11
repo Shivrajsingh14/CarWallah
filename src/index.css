@@ -408,6 +408,45 @@
   }
 }
 
+/* Enhanced Thar-specific animations */
+@keyframes tharRevEngine {
+  0%, 100% {
+    transform: translateX(0px);
+  }
+  25% {
+    transform: translateX(-2px);
+  }
+  75% {
+    transform: translateX(2px);
+  }
+}
+
+@keyframes tharHeadlightFlicker {
+  0%, 100% {
+    opacity: 1;
+    filter: brightness(1);
+  }
+  50% {
+    opacity: 0.8;
+    filter: brightness(1.3);
+  }
+}
+
+@keyframes tharDustKick {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) rotate(0deg) scale(0.5);
+  }
+  50% {
+    opacity: 0.7;
+    transform: translate(-20px, -10px) rotate(45deg) scale(1.2);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-40px, -25px) rotate(90deg) scale(1.8);
+  }
+}
+
 /* Animation Classes */
 .animate-slide-in-left {
   animation: slideInFromLeft 0.8s ease-out;
@@ -512,6 +551,19 @@
   animation: smoke3 4s ease-out infinite 1s;
 }
 
+/* Enhanced Thar Animation Classes */
+.animate-thar-rev {
+  animation: tharRevEngine 0.5s ease-in-out;
+}
+
+.animate-thar-headlight {
+  animation: tharHeadlightFlicker 2s ease-in-out infinite;
+}
+
+.animate-thar-dust {
+  animation: tharDustKick 2s ease-out infinite;
+}
+
 /* Animation Delays */
 .animation-delay-200 {
   animation-delay: 0.2s;
@@ -556,6 +608,15 @@
 /* Car Container Animations */
 .car-container {
   position: relative;
+}
+
+.thar-container {
+  position: relative;
+}
+
+.svg-thar-animation {
+  position: relative;
+  animation: svgCarHover 3s ease-in-out infinite;
 }
 
 .svg-car-animation {
@@ -644,4 +705,39 @@
 /* Car Shadow Animation */
 .car-shadow {
   animation: svgCarHover 3s ease-in-out infinite;
+}
+
+/* Booking Form Enhancements */
+.booking-card {
+  transition: all 0.3s ease;
+}
+
+.booking-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* Smooth Scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom Focus States */
+.focus-ring:focus {
+  outline: 2px solid #FFD700;
+  outline-offset: 2px;
+}
+
+/* Loading Animation */
+@keyframes loading-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.loading-spinner {
+  animation: loading-spin 1s linear infinite;
 }
