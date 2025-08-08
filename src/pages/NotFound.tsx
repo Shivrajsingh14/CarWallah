@@ -1,15 +1,24 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
 const NotFound = () => {
   const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
+    const pathname = location.pathname;
     console.error(
       "404 Error: User attempted to access non-existent route:",
-      location.pathname
+      pathname
     );
-  }, [location.pathname]);
+
+    // Check for and fix double slashes in URLs
+    if (pathname.includes('//')) {
+      const normalizedPath = pathname.replace(/\/+/g, '/');
+      console.log(`Redirecting from ${pathname} to ${normalizedPath}`);
+      navigate(normalizedPath, { replace: true });
+    }
+  }, [location.pathname, navigate]);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">

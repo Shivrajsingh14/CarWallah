@@ -3,13 +3,25 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Phone, Map, Clock, Car } from 'lucide-react';
 
-const ContactSection = () => {
-  return (
-    <section id="contact" className="py-20 bg-gradient-to-br from-carwala-black to-carwala-dark-gray">
-      <div className="container mx-auto px-4">
+const ContactSection = () => {  return (
+    <section id="contact" className="py-20 bg-gradient-to-br from-[#152a4a] via-[#1e3a63] to-[#152a4a] relative overflow-hidden">
+      {/* Animated Background Elements */}
+      <div className="absolute inset-0">
+        {/* Floating Particles */}
+        <div className="absolute top-10 left-10 w-2 h-2 bg-amber-400 rounded-full animate-float-1"></div>
+        <div className="absolute top-20 right-20 w-3 h-3 bg-amber-400 rounded-full animate-float-2"></div>
+        <div className="absolute bottom-20 left-20 w-2 h-2 bg-amber-400 rounded-full animate-float-3"></div>
+        <div className="absolute bottom-10 right-10 w-1 h-1 bg-amber-400 rounded-full animate-float-1"></div>
+
+        {/* Geometric Shapes */}
+        <div className="absolute top-20 left-1/4 w-32 h-32 border border-amber-400 rounded-full opacity-20 animate-spin-slow"></div>
+        <div className="absolute bottom-20 right-1/4 w-24 h-24 border border-amber-400 opacity-30 animate-pulse-slow"></div>
+      </div>
+      
+      <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-carwala-white mb-4">
-            Contact <span className="text-primary">Carwala</span>
+          <h2 className="text-4xl font-bold text-white mb-4">
+            Contact <span className="text-amber-400">Carwala</span>
           </h2>
           <p className="text-gray-300 text-lg">
             Get in touch with us for bookings, queries, or support
@@ -18,30 +30,29 @@ const ContactSection = () => {
 
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Contact Info */}
-          <div className="space-y-6">
-            <Card className="bg-carwala-white/10 backdrop-blur-sm border-carwala-white/20">
+          <div className="space-y-6">            <Card className="bg-white/10 backdrop-blur-sm border-white/20 hover:border-amber-400/30 transition-all duration-300">
               <CardContent className="p-6">
                 <div className="flex items-start space-x-4">
-                  <div className="bg-primary rounded-lg p-3">
-                    <Phone className="w-6 h-6 text-carwala-black" />
+                  <div className="bg-amber-400 rounded-lg p-3">
+                    <Phone className="w-6 h-6 text-[#0a1a35]" />
                   </div>
                   <div>
-                    <h3 className="text-lg font-semibold text-carwala-white mb-2">Call Us</h3>
-                    <p className="text-primary text-xl font-bold">+91 6376390767</p>
+                    <h3 className="text-lg font-semibold text-white mb-2">Call Us</h3>
+                    <p className="text-amber-400 text-xl font-bold">+91 6376390767</p>
                     <p className="text-gray-300 text-sm">Yashpal Singh Jhala - Owner</p>
                   </div>
                 </div>
               </CardContent>
             </Card>
 
-            <Card className="bg-carwala-white/10 backdrop-blur-sm border-carwala-white/20">
+            <Card className="bg-white/10 backdrop-blur-sm border-white/20 hover:border-amber-400/30 transition-all duration-300">
               <CardContent className="p-6">
                 <div className="flex items-start space-x-4">
-                  <div className="bg-primary rounded-lg p-3">
-                    <Map className="w-6 h-6 text-carwala-black" />
+                  <div className="bg-amber-400 rounded-lg p-3">
+                    <Map className="w-6 h-6 text-[#0a1a35]" />
                   </div>
                   <div>
-                    <h3 className="text-lg font-semibold text-carwala-white mb-2">Pickup Location</h3>
+                    <h3 className="text-lg font-semibold text-white mb-2">Pickup Location</h3>
                     <p className="text-gray-300">
                       Carwala Office<br />
                       Udaipur, Rajasthan<br />

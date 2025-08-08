@@ -12,7 +12,7 @@ import { format, differenceInDays, isAfter, isBefore, addDays } from 'date-fns';
 import { cn } from '@/lib/utils';
 
 interface CarProps {
-  id: number;
+  _id: string;
   name: string;
   type: string;
   seating: number;
@@ -26,7 +26,7 @@ interface CarProps {
 
 interface Booking {
   id: string;
-  carId: number;
+  carId: string;
   carName: string;
   startDate: string;
   endDate: string;
@@ -69,7 +69,7 @@ const BookingModal = ({ isOpen, onClose, car, existingBookings, onBookingComplet
     return isAfter(date, addDays(today, -1));
   };
 
-  const checkDateAvailability = (carId: number, start: Date, end: Date) => {
+  const checkDateAvailability = (carId: string, start: Date, end: Date) => {
     const carBookings = existingBookings.filter(booking => booking.carId === carId);
     
     for (const booking of carBookings) {
@@ -83,7 +83,6 @@ const BookingModal = ({ isOpen, onClose, car, existingBookings, onBookingComplet
     }
     return true;
   };
-
   const handleBooking = async () => {
     if (!car) return;
 
@@ -115,8 +114,27 @@ const BookingModal = ({ isOpen, onClose, car, existingBookings, onBookingComplet
       return;
     }
 
+    // Ensure calculations are valid
+    if (totalDays <= 0) {
+      toast({
+        title: "Invalid date selection",
+        description: "Please select valid start and end dates",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    if (totalPrice <= 0) {
+      toast({
+        title: "Invalid pricing",
+        description: "Unable to calculate total price",
+        variant: "destructive"
+      });
+      return;
+    }
+
     // Check availability
-    if (!checkDateAvailability(car.id, startDate, endDate)) {
+    if (!checkDateAvailability(car._id, startDate, endDate)) {
       toast({
         title: "Car not available",
         description: "This car is already booked for the selected dates",
@@ -128,14 +146,42 @@ const BookingModal = ({ isOpen, onClose, car, existingBookings, onBookingComplet
     setIsLoading(true);
 
     try {
-      // Simulate booking process
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      // Prepare booking data
+      const bookingData = {
+        carId: car._id,
+        customerName: customerInfo.name,
+        customerEmail: customerInfo.email,
+        customerPhone: customerInfo.phone,
+        startDate: format(startDate, 'yyyy-MM-dd'),
+        endDate: format(endDate, 'yyyy-MM-dd'),
+        totalDays,
+        totalPrice,
+        advancePayment: advancePayment,
+        paymentMethod: 'card',
+        notes: 'Booked through website'
+      };
 
-      const bookingId = Math.random().toString(36).substr(2, 9).toUpperCase();
+      console.log('Sending booking data:', bookingData);
+
+      // Send booking request to server
+      const response = await fetch('http://localhost:5000/api/bookings', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(bookingData),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Booking failed');
+      }
+
+      const bookingResponse = await response.json();
       
       const newBooking: Booking = {
-        id: bookingId,
-        carId: car.id,
+        id: bookingResponse.bookingId || bookingResponse._id,
+        carId: car._id,
         carName: car.name,
         startDate: format(startDate, 'yyyy-MM-dd'),
         endDate: format(endDate, 'yyyy-MM-dd'),
@@ -144,7 +190,7 @@ const BookingModal = ({ isOpen, onClose, car, existingBookings, onBookingComplet
         customerPhone: customerInfo.phone,
         totalDays,
         totalPrice,
-        bookingDate: format(new Date(), 'yyyy-MM-dd HH:mm:ss')
+        bookingDate: bookingResponse.createdAt || format(new Date(), 'yyyy-MM-dd HH:mm:ss')
       };
 
       onBookingComplete(newBooking);
@@ -152,13 +198,13 @@ const BookingModal = ({ isOpen, onClose, car, existingBookings, onBookingComplet
 
       toast({
         title: "Booking Confirmed! 🎉",
-        description: `Your ${car.name} is booked for ${totalDays} days. Booking ID: ${bookingId}`,
+        description: `Your ${car.name} is booked for ${totalDays} days. Booking ID: ${newBooking.id}`,
       });
 
-    } catch (error) {
+    } catch (error: any) {
       toast({
         title: "Booking Failed",
-        description: "Something went wrong. Please try again.",
+        description: error.message || "Something went wrong. Please try again.",
         variant: "destructive"
       });
     } finally {
@@ -227,9 +273,12 @@ const BookingModal = ({ isOpen, onClose, car, existingBookings, onBookingComplet
             <div className="bg-carwala-black text-carwala-white p-6 rounded-lg">
               <div className="flex items-start gap-4">
                 <img 
-                  src={car.image} 
+                  src={car.image.startsWith('http') ? car.image : `http://localhost:5000${car.image}`} 
                   alt={car.name}
                   className="w-24 h-16 object-cover rounded bg-gray-300"
+                  onError={(e) => {
+                    (e.target as HTMLImageElement).src = '/placeholder.svg';
+                  }}
                 />
                 <div className="flex-1">
                   <h3 className="text-xl font-bold text-primary">{car.name}</h3>
